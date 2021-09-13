@@ -1,0 +1,40 @@
+syntax = "proto3";
+//import "google/protobuf/empty.proto";
+option csharp_namespace = "MoviaMobilEndPiontGrpc.Protos";
+
+package BusGrpcProto;
+
+service BusGrpcService {
+//Crud start
+rpc CreateBus(Bus) returns (DatabaseChaged);
+rpc GetBusInfo(BusRequest) returns (Bus);
+rpc UpdateBusInfo(Bus) returns (DatabaseChaged);
+rpc DeleteBus(Bus) returns (DatabaseChaged);
+//Crud End
+rpc GetAllBuss(BusRequest) returns(BusList);
+rpc UpdaeBusPoscition(Bus) returns (DatabaseChaged);
+rpc UpdatePassagseCount(Bus) returns (DatabaseChaged); // Increments the bus passagse count or decroments
+}
+
+
+message Bus {
+    int32 id = 1;
+    string name = 2;
+    string make = 3;
+    string driver = 5;
+    int32 routeid = 4;
+    int32 totaltbuscap = 6;
+    int32 currentpaxcont = 7;
+    string lat = 8;
+    string lon = 9;
+}
+message BusList{
+    repeated Bus buslist = 1;
+}
+message DatabaseChaged{
+    bool haschanbged = 1;
+}
+
+message BusRequest{
+string id = 1;
+}

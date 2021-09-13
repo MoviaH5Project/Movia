@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+option csharp_namespace = "MoviaMobilEndPiontGrpc.Protos";
+
+package RouteServiceGrpc;
+
+
+service RouteGrpcService {
+
+  rpc GetRoutes (RoutesRequest) returns (Routes);
+}
+
+message RoutesRequest {
+  string name = 1;
+  string bus = 2;
+}
+message Route{
+	string name = 1;
+	string dateOfPurscsss = 2;
+	int32 price = 3;
+}
+
+message Routes{
+	 repeated Route listTickets = 1;
+}
+
+message ResultRouteRepley {
+  string msg = 1;
+}

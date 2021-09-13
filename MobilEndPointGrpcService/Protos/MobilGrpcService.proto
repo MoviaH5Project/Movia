@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+option csharp_namespace = "MoviaMobilEndPiontGrpc.Protos";
+
+package MobilGrpcProto;
+
+
+service TicketGrpcSerive {
+ //Crud start
+//rpc (Bus) returns (DatabaseChaged);
+//rpc (BusRequest) returns (Bus);
+//rpc (Bus) returns (DatabaseChaged);
+//rpc (Bus) returns (DatabaseChaged);
+//Crud End
+//rpc GetAllBuss(BusRequest) returns(BusList);
+//rpc UpdaeBusPoscition(Bus) returns (DatabaseChaged);
+}
+
+message TicketRequest {
+  string name = 1;
+  string route = 2;
+}
+
+
+message Tickets{
+	 repeated Ticket listTickets = 1;
+}
+
+message ResultRepley {
+  string msg = 1;
+}
+
+message Ticket {
+    int32 uuid = 1;
+    int32 busid = 2;
+    string purchasetime = 3;   
+    string departureTimeStamp = 4;
+    string departure = 5;
+    string distenation = 6;
+    float price = 7;
+}
+
