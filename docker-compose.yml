@@ -1,0 +1,35 @@
+version: '3'
+
+networks: 
+  movia_network:
+    driver: bridge
+
+services:
+
+  database_service:
+    build:
+      context: ./DatabaseGrpcService
+      dockerfile: Dockerfile
+    depends_on: 
+      - "postgres_service"
+    ports: 
+      - 5000:5000
+      - 5001:5001
+    environment: 
+      DB_CONNECTION_STRING: "host=postgres_service;port=5432;database=postgres;username=postgres;password=p4$$w0rd;"
+    networks: 
+      - movia_network
+
+  postgres_service:
+    build: 
+      context: ./postgreSQL
+      dockerfile: Dockerfile
+    volumes: 
+      - postgres_data:/var/lib/postgresql/data/
+    environment: 
+      POSTGRES_PASSWORD: p4$$w0rd
+    networks: 
+      - movia_network
+
+volumes: 
+  postgres_data:

@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobilEndPointGrpcService", "MobilEndPointGrpcService\MobilEndPointGrpcService.csproj", "{1E3959A8-0317-4FDE-A3C9-94D08E5801E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobilEndPointGrpcService", "MobilEndPointGrpcService\MobilEndPointGrpcService.csproj", "{1E3959A8-0317-4FDE-A3C9-94D08E5801E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteEndpointGrpcService", "RouteEndpointGrpcService\RouteEndpointGrpcService.csproj", "{42BC9C1F-7442-4056-BE0A-C776E93B1CD2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RouteEndpointGrpcService", "RouteEndpointGrpcService\RouteEndpointGrpcService.csproj", "{42BC9C1F-7442-4056-BE0A-C776E93B1CD2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseGrpcService", "DatabaseGrpcService\DatabaseGrpcService.csproj", "{6159F7D7-2D73-4C7D-9873-4C1AF64C9F46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseGrpcService", "DatabaseGrpcService\DatabaseGrpcService.csproj", "{6159F7D7-2D73-4C7D-9873-4C1AF64C9F46}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
