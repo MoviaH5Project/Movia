@@ -7,20 +7,19 @@ package MobilGrpcProto;
 
 service TicketGrpcSerive {
  //Crud start
-//rpc (Bus) returns (DatabaseChaged);
-//rpc (BusRequest) returns (Bus);
-//rpc (Bus) returns (DatabaseChaged);
-//rpc (Bus) returns (DatabaseChaged);
-//Crud End
-//rpc GetAllBuss(BusRequest) returns(BusList);
-//rpc UpdaeBusPoscition(Bus) returns (DatabaseChaged);
+rpc CreateTicket(TicketRequest) returns (DatabaseChaged);
+rpc Getticket(TicketRequest) returns (Ticket);
+rpc UpdateTicket(TicketRequest) returns (DatabaseChaged);
+rpc RemoveTicket(TicketRequest) returns (DatabaseChaged);
+Crud End
+rpc GetAllTickets(TicketRequest) returns(Tickets);
 }
 
 message TicketRequest {
   string name = 1;
   string route = 2;
+  Ticket Ticket = 3;
 }
-
 
 message Tickets{
 	 repeated Ticket listTickets = 1;
@@ -38,5 +37,9 @@ message Ticket {
     string departure = 5;
     string distenation = 6;
     float price = 7;
+}
+
+message DatabaseChaged{
+    bool haschanbged = 1;
 }
 
