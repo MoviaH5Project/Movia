@@ -26,11 +26,14 @@ namespace MobilEndPointGrpcService.Services
         public MobilGrpc(ILogger<MobilGrpc> logger)
         {
             _logger = logger;
-            //if (channel == null)
-            //    channel = new database.DatabaseGrpcService.DatabaseGrpcServiceClient(GrpcChannel.ForAddress("0.0.0.0", new GrpcChannelOptions
-            //    {
-            //        Credentials = ChannelCredentials.Insecure
-            //    }));
+#if DEBUG
+
+            if (channel == null)
+                channel = new database.DatabaseGrpcService.DatabaseGrpcServiceClient(GrpcChannel.ForAddress("0.0.0.0", new GrpcChannelOptions
+                {
+                    Credentials = ChannelCredentials.Insecure
+                }));
+#endif
 
         }
         #endregion
@@ -59,29 +62,61 @@ namespace MobilEndPointGrpcService.Services
         }
         public override Task<DatabaseChagedBus> DeleteBus(Bus request, ServerCallContext context)
         {
-            return base.DeleteBus(request, context);
+#if DEBUG
+            return Task.FromResult(new DatabaseChagedBus { Haschanbged = false });
+
+#endif
+            //Database local object
+            database.Bus databaseBus = database.Bus.Parser.ParseFrom(request.ToByteArray());
+            //MobilService Proto Object converting
+            bool repley = channel.DeleteBus(new database.Request{Id=request.Id}).Succeeded;
+
+            return Task.FromResult(new DatabaseChagedBus { Haschanbged = repley });
+
+
         }
 
         public override Task<Bus> GetBusInfo(BusRequest request, ServerCallContext context)
         {
-            Console.WriteLine("bus infomation sent");            
+            Console.WriteLine("Parms is of type" + request.GetType().ToString());
+#if DEBUG
+            return Task.FromResult(new Bus { Driver = "Andi", Id = 1, Make = "Bmw", Name = "asdf" });
+#endif
             //Database local object
-            //database.Request datarequst = new database.Request();
-            //datarequst.Id = request.Id;
+            database.Request datarequst = new database.Request();
+            datarequst.Id = request.Id;
             //MobilService Proto Object converting
-            //Bus.Parser.ParseFrom(channel.GetBus(datarequst).ToByteArray());
+            Bus repley = Bus.Parser.ParseFrom(channel.GetBus(datarequst).ToByteArray());
 
-            return Task.FromResult(new Bus {Driver="Andi",Id=1,Make="Bmw",Name="asdf" });
-            
+            return Task.FromResult(repley);
+
         }
 
         public override Task<DatabaseChagedBus> UpdaeBusPoscition(Bus request, ServerCallContext context)
         {
-            return base.UpdaeBusPoscition(request, context);
+
+#if DEBUG
+            return Task.FromResult(new DatabaseChagedBus { Haschanbged = false });
+#endif
+            //Database local object
+            database.Bus databaseBus = database.Bus.Parser.ParseFrom(request.ToByteArray());
+            //MobilService Proto Object converting
+            bool repley = channel.UpdateBus(database.Bus.Parser.ParseFrom(channel.UpdateBus(databaseBus).ToByteArray())).Succeeded;
+
+            return Task.FromResult(new DatabaseChagedBus { Haschanbged = repley });
+
         }
         public override Task<DatabaseChagedBus> UpdateBusInfo(Bus request, ServerCallContext context)
         {
-            return base.UpdateBusInfo(request, context);
+#if DEBUG
+            return Task.FromResult(new DatabaseChagedBus { Haschanbged = false });
+#endif
+            //Database local object
+            database.Bus databaseBus = database.Bus.Parser.ParseFrom(request.ToByteArray());
+            //MobilService Proto Object converting
+            bool repley = channel.UpdateBus(database.Bus.Parser.ParseFrom(channel.UpdateBus(databaseBus).ToByteArray())).Succeeded;
+
+            return Task.FromResult(new DatabaseChagedBus { Haschanbged = repley });
         }
         #endregion
     }
