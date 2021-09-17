@@ -8,9 +8,9 @@ package RouteServiceGrpc;
 service RouteGrpcService {
 
   rpc GetRoutes (RoutesRequest) returns (Routes);
-  rpc CreateRoutes (RoutesRequest) returns(DatabaseChaged);
-  rpc UpdateRoute (RoutesRequest) returns(DatabaseChaged);
-  rpc RemoveRoute(RoutesRequest) returns(DatabaseChaged);
+  rpc CreateRoutes (RoutesRequest) returns(DatabaseChagedRoute);
+  rpc UpdateRoute (RoutesRequest) returns(DatabaseChagedRoute);
+  rpc RemoveRoute(RoutesRequest) returns(DatabaseChagedRoute);
 }
 
 message RoutesRequest {
@@ -27,6 +27,6 @@ message Routes{
 	 repeated Route listTickets = 1;
 }
 
-message DatabaseChaged{
+message DatabaseChagedRoute{
     bool haschanbged = 1;
 }

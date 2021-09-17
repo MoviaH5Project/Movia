@@ -7,11 +7,11 @@ package MobilGrpcProto;
 
 service TicketGrpcSerive {
  //Crud start
-rpc CreateTicket(TicketRequest) returns (DatabaseChaged);
+rpc CreateTicket(TicketRequest) returns (DatabaseChagedTicket);
 rpc Getticket(TicketRequest) returns (Ticket);
-rpc UpdateTicket(TicketRequest) returns (DatabaseChaged);
-rpc RemoveTicket(TicketRequest) returns (DatabaseChaged);
-Crud End
+rpc UpdateTicket(TicketRequest) returns (DatabaseChagedTicket);
+rpc RemoveTicket(TicketRequest) returns (DatabaseChagedTicket);
+//Crud End
 rpc GetAllTickets(TicketRequest) returns(Tickets);
 }
 
@@ -39,7 +39,7 @@ message Ticket {
     float price = 7;
 }
 
-message DatabaseChaged{
+message DatabaseChagedTicket{
     bool haschanbged = 1;
 }
 

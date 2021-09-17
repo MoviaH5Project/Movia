@@ -6,14 +6,14 @@ package BusGrpcProto;
 
 service BusGrpcService {
 //Crud start
-rpc CreateBus(Bus) returns (DatabaseChaged);
+rpc CreateBus(Bus) returns (DatabaseChagedBus);
 rpc GetBusInfo(BusRequest) returns (Bus);
-rpc UpdateBusInfo(Bus) returns (DatabaseChaged);
-rpc DeleteBus(Bus) returns (DatabaseChaged);
+rpc UpdateBusInfo(Bus) returns (DatabaseChagedBus);
+rpc DeleteBus(Bus) returns (DatabaseChagedBus);
 //Crud End
 rpc GetAllBuss(BusRequest) returns(BusList);
-rpc UpdaeBusPoscition(Bus) returns (DatabaseChaged);
-rpc UpdatePassagseCount(Bus) returns (DatabaseChaged); // Increments the bus passagse count or decroments
+rpc UpdaeBusPoscition(Bus) returns (DatabaseChagedBus);
+rpc UpdatePassagseCount(Bus) returns (DatabaseChagedBus); // Increments the bus passagse count or decroments
 }
 
 
@@ -31,7 +31,7 @@ message Bus {
 message BusList{
     repeated Bus buslist = 1;
 }
-message DatabaseChaged{
+message DatabaseChagedBus{
     bool haschanbged = 1;
 }
 

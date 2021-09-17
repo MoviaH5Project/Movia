@@ -6,8 +6,13 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Protos\DatabaseGrpcService.proto" />
+  </ItemGroup>
+
 	<ItemGroup>
 		<Protobuf Include="Protos\BusGrpcService.proto" GrpcServices="Server" />
+		<Protobuf Include="Protos\DatabaseGrpcService.proto" GrpcServices="Server" />
 		<Protobuf Include="Protos\MobilGrpcService.proto" GrpcServices="Server" />
 		<Protobuf Include="Protos\RouteServiceGrpc.proto" GrpcServices="Server" />
 	</ItemGroup>
