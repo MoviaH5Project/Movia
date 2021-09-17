@@ -3,8 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MobilEndPiontGrpcService.Services;
-using MoviaMobilEndPiontGrpc.Services;
+using MobilEndPointGrpcService.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +33,7 @@ namespace MobilEndPointGrpcService
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGrpcService<MobilGrpc>();
-                endpoints.MapGrpcService<RouteGrpc>();
+                //endpoints.MapGrpcService<RouteGrpc>();
             });
         }
     }

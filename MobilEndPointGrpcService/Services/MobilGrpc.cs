@@ -5,9 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Grpc.Core;
 using Google.Protobuf;
-using MoviaMobilEndPiontGrpc.Protos;
+using MobilEndPointGrpcService;
 
-namespace MoviaMobilEndPiontGrpc.Services
+namespace MobilEndPointGrpcService.Services
 {
     public class MobilGrpc
     {

@@ -21,7 +21,16 @@ namespace MobilEndPointGrpcService
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>().ConfigureKestrel(x => x.Listen(System.Net.IPAddress.Parse("192.168.1.1"), 5200));
+                    webBuilder.UseStartup<Startup>()
+                     .ConfigureKestrel(options =>
+                     {
+                         options.Listen(IPAddress.Any, 5200, listenOptions =>
+                         {
+
+                             listenOptions.Protocols = HttpProtocols.Http2;
+                         });
+
+                     });
                 });
     }
 }

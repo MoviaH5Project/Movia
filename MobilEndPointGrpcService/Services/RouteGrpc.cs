@@ -5,12 +5,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Grpc.Core;
 using Google.Protobuf;
-using MoviaMobilEndPiontGrpc.Protos;
-using MoviaMobilEndPiontGrpc.Services;
+using MobilEndPointGrpcService.Protos;
+using MobilEndPointGrpcService.Services;
 
-namespace MobilEndPiontGrpcService.Services
+namespace MobilEndPointGrpcService.Services
 {
-    public class RouteGrpc : MoviaMobilEndPiontGrpc.Protos.RouteGrpcService.RouteGrpcServiceBase
+    public class RouteGrpc : MobilEndPointGrpcService.Protos.RouteGrpcService.RouteGrpcServiceBase
     {
         private readonly ILogger<MobilGrpc> _logger;
         public RouteGrpc(ILogger<MobilGrpc> logger)

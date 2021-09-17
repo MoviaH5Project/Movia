@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option csharp_namespace = "MoviaMobilEndPiontGrpc.Protos";
+option csharp_namespace = "MobilEndPointGrpcService.Protos";
 
 package RouteServiceGrpc;
 
