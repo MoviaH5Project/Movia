@@ -11,7 +11,8 @@ namespace DatabaseGrpcService.ApplicationServices
 {
 	internal class GrpcService : Protos.DatabaseGrpcService.DatabaseGrpcServiceBase
 	{
-		private readonly IMapperService _mapperService;
+        #region Props
+        private readonly IMapperService _mapperService;
 		private readonly IBusRepository _busRepository;
 		private readonly IRouteRepository _routeRepository;
 		private readonly IStopRepository _stopRepository;
@@ -20,8 +21,9 @@ namespace DatabaseGrpcService.ApplicationServices
 		private readonly IFobRepository _fobRepository;
 		private readonly INfcRepository _nfcRepository;
 		private readonly ILogger<GrpcService> _logger;
-
-		public GrpcService(
+        #endregion
+        #region Construtur
+        public GrpcService(
 			IMapperService mapperService,
 			IBusRepository busRepository,
 			IRouteRepository routeRepository,
@@ -42,8 +44,9 @@ namespace DatabaseGrpcService.ApplicationServices
 			_nfcRepository = nfcRepository;
 			_logger = logger;
 		}
+#endregion
 
-		public override async Task<Response> CreateBus(Bus request, ServerCallContext context)
+        public override async Task<Response> CreateBus(Bus request, ServerCallContext context)
 		{
 			try
 			{
