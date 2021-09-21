@@ -19,7 +19,7 @@ namespace MobilEndPointGrpcService.Services
     public class MobilGrpc : BusGrpcService.BusGrpcServiceBase
     {
         #region Props
-        static database.DatabaseGrpcService.DatabaseGrpcServiceClient channel;
+        private static database.DatabaseGrpcService.DatabaseGrpcServiceClient channel;
         private readonly ILogger<MobilGrpc> _logger;
         #endregion
         #region ctor
@@ -28,6 +28,7 @@ namespace MobilEndPointGrpcService.Services
             _logger = logger;
 #if DEBUG
 
+#else 
             if (channel == null)
                 channel = new database.DatabaseGrpcService.DatabaseGrpcServiceClient(GrpcChannel.ForAddress("0.0.0.0", new GrpcChannelOptions
                 {
@@ -38,17 +39,33 @@ namespace MobilEndPointGrpcService.Services
         }
         #endregion
         #region Grpc_Methoeds
+        /// <summary>
+        /// Returns all the buss
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public override Task<BusList> GetAllBuss(BusRequest request, ServerCallContext context)
         {
-            //byte[] result = channel.GetAllBusses(new database.Request { Id = 1 }).ToByteArray();
-
-            //BusList repley = BusList.Parser.ParseFrom(result);
+            _logger.Log(LogLevel.Information, $"{context.Method} has been called by host: {context.Host}");
+#if DEBUG
+            return Task.FromResult(new BusList());
+#endif
 
             return Task.FromResult(new BusList());
-            //return Task.FromResult(repley);
         }
+        /// <summary>
+        /// Updates the bus passages count, returns a boolian that indicats wherter the datarequste have been completede.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public override Task<DatabaseChagedBus> UpdatePassagseCount(Bus request, ServerCallContext context)
         {
+#if DEBUG
+            return Task.FromResult(new DatabaseChagedBus { Haschanbged = false });
+#endif
+            _logger.Log(LogLevel.Information, $"{context.Method} has been called by host: {context.Host}");
             Console.WriteLine($"{context.Host} called: UpdatePassagseCount");
             byte[] result = channel.GetAllBusses(new database.Request { Id = 1 }).ToByteArray();
 
@@ -56,33 +73,52 @@ namespace MobilEndPointGrpcService.Services
 
             return base.UpdatePassagseCount(request, context);
         }
+        /// <summary>
+        /// Inserts the surpliled bus into the database, returns a boolian that indicats wherter the datarequste have been completede.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public override Task<DatabaseChagedBus> CreateBus(Bus request, ServerCallContext context)
         {
+#if DEBUG
+            return Task.FromResult(new DatabaseChagedBus { Haschanbged = false });
+#endif
+            _logger.Log(LogLevel.Information, $"{context.Method} has been called by host: {context.Host}");
             return base.CreateBus(request, context);
         }
+        /// <summary>
+        /// REmoves a bus from the datavbase,  returns a boolian that indicats wherter the datarequste have been completede.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public override Task<DatabaseChagedBus> DeleteBus(Bus request, ServerCallContext context)
         {
+            _logger.Log(LogLevel.Information, $"{context.Method} has been called by host: {context.Host}");
 #if DEBUG
             return Task.FromResult(new DatabaseChagedBus { Haschanbged = false });
 
 #endif
-            //Database local object
             database.Bus databaseBus = database.Bus.Parser.ParseFrom(request.ToByteArray());
             //MobilService Proto Object converting
-            bool repley = channel.DeleteBus(new database.Request{Id=request.Id}).Succeeded;
+            bool repley = channel.DeleteBus(new database.Request { Id = request.Id }).Succeeded;
 
             return Task.FromResult(new DatabaseChagedBus { Haschanbged = repley });
-
-
         }
-
+        /// <summary>
+        /// gets a single bus by id, returns the bus object.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public override Task<Bus> GetBusInfo(BusRequest request, ServerCallContext context)
         {
-            Console.WriteLine("Parms is of type" + request.GetType().ToString());
+            _logger.Log(LogLevel.Information, $"{context.Method} has been called by host: {context.Host}");            
 #if DEBUG
             return Task.FromResult(new Bus { Driver = "Andi", Id = 1, Make = "Bmw", Name = "asdf" });
 #endif
-            //Database local object
+
             database.Request datarequst = new database.Request();
             datarequst.Id = request.Id;
             //MobilService Proto Object converting
@@ -91,14 +127,19 @@ namespace MobilEndPointGrpcService.Services
             return Task.FromResult(repley);
 
         }
-
+        /// <summary>
+        /// updates the lat & lon of the bus,  returns a boolian that indicats wherter the datarequste have been completede.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public override Task<DatabaseChagedBus> UpdaeBusPoscition(Bus request, ServerCallContext context)
         {
-
+            _logger.Log(LogLevel.Information, $"{context.Method} has been called by host: {context.Host}");
 #if DEBUG
             return Task.FromResult(new DatabaseChagedBus { Haschanbged = false });
 #endif
-            //Database local object
+
             database.Bus databaseBus = database.Bus.Parser.ParseFrom(request.ToByteArray());
             //MobilService Proto Object converting
             bool repley = channel.UpdateBus(database.Bus.Parser.ParseFrom(channel.UpdateBus(databaseBus).ToByteArray())).Succeeded;
@@ -106,12 +147,19 @@ namespace MobilEndPointGrpcService.Services
             return Task.FromResult(new DatabaseChagedBus { Haschanbged = repley });
 
         }
+        /// <summary>
+        /// Updates as bulk the bus object,  returns a boolian that indicats wherter the datarequste have been completede.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public override Task<DatabaseChagedBus> UpdateBusInfo(Bus request, ServerCallContext context)
         {
+            _logger.Log(LogLevel.Information, $"{context.Method} has been called by host: {context.Host}");
 #if DEBUG
             return Task.FromResult(new DatabaseChagedBus { Haschanbged = false });
 #endif
-            //Database local object
+
             database.Bus databaseBus = database.Bus.Parser.ParseFrom(request.ToByteArray());
             //MobilService Proto Object converting
             bool repley = channel.UpdateBus(database.Bus.Parser.ParseFrom(channel.UpdateBus(databaseBus).ToByteArray())).Succeeded;
