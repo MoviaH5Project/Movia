@@ -24,8 +24,8 @@ namespace DatabaseGrpcService.InfrastructureServices.Repository
 
 		public BaseRepository(IDbConnection dbConnection, ILogger<BaseRepository<T>> logger)
 		{
-			_dbConnection = dbConnection;
-			_logger = logger;
+			_dbConnection = dbConnection ?? throw new ArgumentNullException(nameof(dbConnection));
+			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
 		}
 
 		public async Task<T> GetAsync(int id)
@@ -60,6 +60,11 @@ namespace DatabaseGrpcService.InfrastructureServices.Repository
 
 		public async Task<int> InsertAsync(T entity)
 		{
+			if (entity is null)
+			{
+				throw new ArgumentNullException(nameof(entity));
+			}
+
 			_logger.LogInformation("Inserting entity {entity} of type {type}", entity, typeof(T).Name);
 			_logger.LogInformation(_dbConnection.ConnectionString);
 			_logger.LogInformation(_dbConnection.Database);
@@ -77,6 +82,11 @@ namespace DatabaseGrpcService.InfrastructureServices.Repository
 
 		public async Task<bool> UpdateAsync(T entity)
 		{
+			if (entity is null)
+			{
+				throw new ArgumentNullException(nameof(entity));
+			}
+
 			_logger.LogInformation("Updating entity {entity} of type {type}", entity, typeof(T).Name);
 
 			try
@@ -92,6 +102,11 @@ namespace DatabaseGrpcService.InfrastructureServices.Repository
 
 		public async Task<bool> DeleteAsync(T entity)
 		{
+			if (entity is null)
+			{
+				throw new ArgumentNullException(nameof(entity));
+			}
+
 			_logger.LogInformation("Deleting entity {entity} of type {type}", entity, typeof(T).Name);
 
 			try

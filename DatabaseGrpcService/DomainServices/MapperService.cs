@@ -16,8 +16,8 @@ namespace DatabaseGrpcService.DomainServices
 
 		public MapperService(IMapper mapper, ILogger<MapperService> logger)
 		{
-			_mapper = mapper;
-			_logger = logger;
+			_mapper = mapper ?? throw new System.ArgumentNullException(nameof(mapper));
+			_logger = logger ?? throw new System.ArgumentNullException(nameof(logger));
 		}
 
 		public DAO MapFromProtoToDao<PROTO, DAO>(PROTO proto)
