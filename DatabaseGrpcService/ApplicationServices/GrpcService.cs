@@ -12,17 +12,19 @@ namespace DatabaseGrpcService.ApplicationServices
 {
 	internal class GrpcService : Protos.DatabaseGrpcService.DatabaseGrpcServiceBase
 	{
-		private readonly IMapperService _mapperService;
-		private readonly IBusRepository _busRepository;
-		private readonly IRouteRepository _routeRepository;
-		private readonly IStopRepository _stopRepository;
-		private readonly ITicketRepository _ticketRepository;
-		private readonly IPassengerRepository _passengerRepository;
-		private readonly IFobRepository _fobRepository;
-		private readonly INfcRepository _nfcRepository;
-		private readonly ILogger<GrpcService> _logger;
-
-		public GrpcService(
+      #region Props
+      private readonly IMapperService _mapperService;
+		  private readonly IBusRepository _busRepository;
+		  private readonly IRouteRepository _routeRepository;
+		  private readonly IStopRepository _stopRepository;
+		  private readonly ITicketRepository _ticketRepository;
+		  private readonly IPassengerRepository _passengerRepository;
+		  private readonly IFobRepository _fobRepository;
+		  private readonly INfcRepository _nfcRepository;
+		  private readonly ILogger<GrpcService> _logger;
+      #endregion
+      #region Construtur
+        public GrpcService(
 			IMapperService mapperService,
 			IBusRepository busRepository,
 			IRouteRepository routeRepository,
@@ -43,6 +45,7 @@ namespace DatabaseGrpcService.ApplicationServices
 			_nfcRepository = nfcRepository;
 			_logger = logger;
 		}
+    #endregion
 
 		#region Bus
 
