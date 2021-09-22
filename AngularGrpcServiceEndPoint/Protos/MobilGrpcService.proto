@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+option csharp_namespace = "MobilEndPointGrpcService.Protos";
+
+package MobilGrpcProto;
+
+
+service TicketGrpcSerive {
+ //Crud start
+rpc CreateTicket(TicketRequest) returns (DatabaseChagedTicket);
+rpc Getticket(TicketRequest) returns (Ticket);
+rpc UpdateTicket(TicketRequest) returns (DatabaseChagedTicket);
+rpc RemoveTicket(TicketRequest) returns (DatabaseChagedTicket);
+//Crud End
+rpc GetAllTickets(TicketRequest) returns(Tickets);
+}
+
+message TicketRequest {
+  string name = 1;
+  string route = 2;
+  Ticket Ticket = 3;
+}
+
+message Tickets{
+	 repeated Ticket listTickets = 1;
+}
+
+message ResultRepley {
+  string msg = 1;
+}
+
+message Ticket {
+    int32 uuid = 1;
+    int32 busid = 2;
+    string purchasetime = 3;   
+    string departureTimeStamp = 4;
+    string departure = 5;
+    string distenation = 6;
+    float price = 7;
+}
+
+message DatabaseChagedTicket{
+    bool haschanbged = 1;
+}
+

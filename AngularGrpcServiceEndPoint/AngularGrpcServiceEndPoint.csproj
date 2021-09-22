@@ -5,11 +5,21 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
+    <None Remove="Protos\BusGrpcService.proto" />
+    <None Remove="Protos\DatabaseGrpcService.proto" />
+    <None Remove="Protos\MobilGrpcService.proto" />
+    <None Remove="Protos\RouteServiceGrpc.proto" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Grpc.AspNetCore" Version="2.34.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="Protos\BusGrpcService.proto" GrpcServices="Server/Client" />
+    <Protobuf Include="Protos\DatabaseGrpcService.proto" GrpcServices="Client" />
+    <Protobuf Include="Protos\MobilGrpcService.proto" GrpcServices="Server" />
+    <Protobuf Include="Protos\RouteServiceGrpc.proto" GrpcServices="Server" />
   </ItemGroup>
 
 </Project>
