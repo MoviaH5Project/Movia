@@ -65,7 +65,7 @@ namespace DatabaseGrpcService.InfrastructureServices.Repository
 				throw new ArgumentNullException(nameof(entity));
 			}
 
-			_logger.LogInformation("Inserting entity {entity} of type {type}", entity, typeof(T).Name);
+			_logger.LogInformation("Inserting entity {@entity} of type {type}", entity, typeof(T).Name);
 			_logger.LogInformation(_dbConnection.ConnectionString);
 			_logger.LogInformation(_dbConnection.Database);
 
@@ -75,7 +75,7 @@ namespace DatabaseGrpcService.InfrastructureServices.Repository
 			}
 			catch (Exception ex)
 			{
-				_logger.LogError(ex, "Something went wrong when trying to insert entity {entity} of type {type}", entity, typeof(T).Name);
+				_logger.LogError(ex, "Something went wrong when trying to insert entity {@entity} of type {type}", entity, typeof(T).Name);
 				throw;
 			}
 		}
@@ -87,7 +87,7 @@ namespace DatabaseGrpcService.InfrastructureServices.Repository
 				throw new ArgumentNullException(nameof(entity));
 			}
 
-			_logger.LogInformation("Updating entity {entity} of type {type}", entity, typeof(T).Name);
+			_logger.LogInformation("Updating entity {@entity} of type {type}", entity, typeof(T).Name);
 
 			try
 			{
@@ -95,7 +95,7 @@ namespace DatabaseGrpcService.InfrastructureServices.Repository
 			}
 			catch (Exception ex)
 			{
-				_logger.LogError(ex, "Something went wrong when trying to update entity {entity} of type {type}", entity, typeof(T).Name);
+				_logger.LogError(ex, "Something went wrong when trying to update entity {@entity} of type {type}", entity, typeof(T).Name);
 				throw;
 			}
 		}
@@ -107,7 +107,7 @@ namespace DatabaseGrpcService.InfrastructureServices.Repository
 				throw new ArgumentNullException(nameof(entity));
 			}
 
-			_logger.LogInformation("Deleting entity {entity} of type {type}", entity, typeof(T).Name);
+			_logger.LogInformation("Deleting entity {@entity} of type {type}", entity, typeof(T).Name);
 
 			try
 			{
@@ -115,7 +115,7 @@ namespace DatabaseGrpcService.InfrastructureServices.Repository
 			}
 			catch (Exception ex)
 			{
-				_logger.LogError(ex, "Something went wrong when trying to delete entity {entity} of type {type}", entity, typeof(T).Name);
+				_logger.LogError(ex, "Something went wrong when trying to delete entity {@entity} of type {type}", entity, typeof(T).Name);
 				throw;
 			}
 		}
