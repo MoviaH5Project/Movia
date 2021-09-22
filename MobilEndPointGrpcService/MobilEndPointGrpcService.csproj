@@ -11,7 +11,7 @@
   </ItemGroup>
 
 	<ItemGroup>
-		<Protobuf Include="Protos\BusGrpcService.proto" GrpcServices="Server" />
+		<Protobuf Include="Protos\BusGrpcService.proto" GrpcServices="Server/Client" />
 		<Protobuf Include="Protos\DatabaseGrpcService.proto" GrpcServices="Client" />
 		<Protobuf Include="Protos\MobilGrpcService.proto" GrpcServices="Server" />
 		<Protobuf Include="Protos\RouteServiceGrpc.proto" GrpcServices="Server" />
