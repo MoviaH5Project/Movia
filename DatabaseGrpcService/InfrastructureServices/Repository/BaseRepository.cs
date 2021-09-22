@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DatabaseGrpcService.InfrastructureServices.Repository
@@ -10,7 +11,7 @@ namespace DatabaseGrpcService.InfrastructureServices.Repository
 	internal interface IBaseRepository<T>
 	{
 		Task<bool> DeleteAsync(T entity);
-		Task<IEnumerable<T>> GetAllAsync();
+		Task<List<T>> GetAllAsync();
 		Task<T> GetAsync(int id);
 		Task<int> InsertAsync(T entity);
 		Task<bool> UpdateAsync(T entity);
@@ -42,13 +43,13 @@ namespace DatabaseGrpcService.InfrastructureServices.Repository
 			}
 		}
 
-		public async Task<IEnumerable<T>> GetAllAsync()
+		public async Task<List<T>> GetAllAsync()
 		{
 			_logger.LogInformation("Getting all entities of type {type}", typeof(T).Name);
 
 			try
 			{
-				return await _dbConnection.GetAllAsync<T>();
+				return (await _dbConnection.GetAllAsync<T>()).ToList();
 			}
 			catch (Exception ex)
 			{
