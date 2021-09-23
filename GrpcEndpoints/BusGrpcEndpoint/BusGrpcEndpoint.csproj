@@ -16,4 +16,8 @@
 		<Protobuf Include="..\..\Protos\TicketGrpcService.proto" GrpcServices="Client" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Services\" />
+	</ItemGroup>
+
 </Project>

@@ -27,7 +27,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Protos", "Protos", "{540F6D
 		Protos\BusGrpcService.proto = Protos\BusGrpcService.proto
 		Protos\DatabaseGrpcService.proto = Protos\DatabaseGrpcService.proto
 		Protos\MobilGrpcService.proto = Protos\MobilGrpcService.proto
-		Protos\RouteServiceGrpc.proto = Protos\RouteServiceGrpc.proto
+		Protos\RouteGrpcService.proto = Protos\RouteGrpcService.proto
+		Protos\TicketGrpcService.proto = Protos\TicketGrpcService.proto
 	EndProjectSection
 EndProject
 Global
