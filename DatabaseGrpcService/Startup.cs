@@ -18,6 +18,11 @@ namespace DatabaseGrpcService
 		// For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
 		public void ConfigureServices(IServiceCollection services)
 		{
+			if (services is null)
+			{
+				throw new ArgumentNullException(nameof(services));
+			}
+
 			// Infrastructure services
 			services.AddTransient<IDbConnection>(services =>
 			{
@@ -45,6 +50,16 @@ namespace DatabaseGrpcService
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
+			if (app is null)
+			{
+				throw new ArgumentNullException(nameof(app));
+			}
+
+			if (env is null)
+			{
+				throw new ArgumentNullException(nameof(env));
+			}
+
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();

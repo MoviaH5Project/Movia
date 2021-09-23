@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Hosting;
+using Serilog;
+using System;
 using System.Net;
 
 namespace DatabaseGrpcService
@@ -9,7 +11,27 @@ namespace DatabaseGrpcService
 	{
 		public static void Main(string[] args)
 		{
-			CreateHostBuilder(args).Build().Run();
+			Log.Logger = new LoggerConfiguration()
+				.Enrich.FromLogContext()
+				.WriteTo.Console()
+				.CreateBootstrapLogger();
+
+			try
+			{
+				Log.Information("Service is starting up..");
+
+				CreateHostBuilder(args).Build().Run();
+
+				Log.Information("Service stopped cleanly");
+			}
+			catch (Exception ex)
+			{
+				Log.Fatal(ex, "An unhandled exception occurred during bootstrapping!");
+			}
+			finally
+			{
+				Log.CloseAndFlush();
+			}
 		}
 
 		// Additional configuration is required to successfully run gRPC on macOS.
@@ -17,6 +39,10 @@ namespace DatabaseGrpcService
 		public static IHostBuilder CreateHostBuilder(string[] args)
 		{
 			return Host.CreateDefaultBuilder(args)
+				.UseSerilog((context, services, configuration) => configuration
+					.WriteTo.Console()
+					.ReadFrom.Configuration(context.Configuration)
+					.ReadFrom.Services(services))
 				.ConfigureWebHostDefaults(webBuilder =>
 				{
 					webBuilder.UseStartup<Startup>()
