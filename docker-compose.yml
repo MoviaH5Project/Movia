@@ -6,21 +6,119 @@ networks:
 
 services:
 
+  angular_website:
+    build:
+      context: ../MoviaAdminSite
+      dockerfile: Dockerfile
+    depends_on: 
+      - website_endpoint
+    environment: 
+      DATABASE_SERVICE_URL: http://website_endpoint:5000 
+      TZ: Europe/Copenhagen
+    ports:
+      - 80:80
+    networks: 
+      - movia_network
+
+  website_endpoint:
+    build:
+      context: ./AngularGrpcServiceEndPoint
+      dockerfile: Dockerfile
+    depends_on: 
+      - bus_service
+      - route_service
+    environment: 
+      BUS_SERVICE_URL: http://bus_service:5000 
+      ROUTE_SERVICE_URL: http://route_service:5000 
+      TZ: Europe/Copenhagen
+    ports:
+      - 5100:5100
+    networks: 
+      - movia_network
+
+  mobile_endpoint:
+    build:
+      context: ./AngularGrpcServiceEndPoint
+      dockerfile: Dockerfile
+    depends_on: 
+      - bus_service
+      - ticket_service
+      - route_service
+    environment: 
+      BUS_SERVICE_URL: http://bus_service:5000 
+      TICKET_SERVICE_URL: http://ticket_service:5000 
+      ROUTE_SERVICE_URL: http://route_service:5000 
+      TZ: Europe/Copenhagen
+    ports:
+      - 5200:5200
+    networks: 
+      - movia_network
+
+  bus_endpoint:
+    build:
+      context: ./AngularGrpcServiceEndPoint
+      dockerfile: Dockerfile
+    depends_on: 
+      - bus_service
+      - ticket_service
+    environment: 
+      BUS_SERVICE_URL: http://bus_service:5000
+      TICKET_SERVICE_URL: http://ticket_service:5000
+      TZ: Europe/Copenhagen
+    ports: 
+      - 5300:5300
+    networks: 
+      - movia_network
+
+  bus_service:
+    build:
+      context: ./BusGrpcService
+      dockerfile: Dockerfile
+    depends_on: 
+      - database_service
+    environment: 
+      DATABASE_SERVICE_URL: http://database_service:5000 
+      TZ: Europe/Copenhagen
+    networks: 
+      - movia_network
+
+  ticket_services:
+    build:
+      context: ./TicketGrpcService
+      dockerfile: Dockerfile
+    depends_on: 
+      - database_service
+    environment: 
+      DATABASE_SERVICE_URL: http://database_service:5000 
+      TZ: Europe/Copenhagen
+    networks: 
+      - movia_network
+
+  route_service:
+    build:
+      context: ./RouteGrpcService
+      dockerfile: Dockerfile
+    depends_on: 
+      - database_service
+    environment: 
+      DATABASE_SERVICE_URL: http://database_service:5000 
+      TZ: Europe/Copenhagen
+    networks: 
+      - movia_network
+
   database_service:
     build:
       context: ./DatabaseGrpcService
       dockerfile: Dockerfile
     depends_on: 
-      - "postgres_service"
-    ports: 
-      - 5000:5000
-      - 5001:5001
+      - postgres_database
     environment: 
-      DB_CONNECTION_STRING: "host=postgres_service;port=5432;database=postgres;username=postgres;password=p4$$w0rd;"
+      DB_CONNECTION_STRING: host=postgres_database;port=5432;database=postgres;username=postgres;password=p4$$w0rd;
+      TZ: Europe/Copenhagen
     networks: 
       - movia_network
 
-  postgres_service:
+  postgres_database:
     build: 
       context: ./postgreSQL
       dockerfile: Dockerfile
@@ -28,6 +126,7 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     environment: 
       POSTGRES_PASSWORD: p4$$w0rd
+      TZ: Europe/Copenhagen
     networks: 
       - movia_network
 
