@@ -3,23 +3,29 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobileGrpcEndpoint", "MobileGrpcEndpoint\MobileGrpcEndpoint.csproj", "{1E3959A8-0317-4FDE-A3C9-94D08E5801E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobileGrpcEndpoint", "GrpcEndpoints\MobileGrpcEndpoint\MobileGrpcEndpoint.csproj", "{1E3959A8-0317-4FDE-A3C9-94D08E5801E9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusGrpcEndpoint", "BusGrpcEndpoint\BusGrpcEndpoint.csproj", "{42BC9C1F-7442-4056-BE0A-C776E93B1CD2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusGrpcEndpoint", "GrpcEndpoints\BusGrpcEndpoint\BusGrpcEndpoint.csproj", "{42BC9C1F-7442-4056-BE0A-C776E93B1CD2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseGrpcService", "DatabaseGrpcService\DatabaseGrpcService.csproj", "{6159F7D7-2D73-4C7D-9873-4C1AF64C9F46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseGrpcService", "GrpcServices\DatabaseGrpcService\DatabaseGrpcService.csproj", "{6159F7D7-2D73-4C7D-9873-4C1AF64C9F46}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebsiteGrpcEndpoint", "WebsiteGrpcEndpoint\WebsiteGrpcEndpoint.csproj", "{97F9C841-3182-4B60-9A45-59DED21A43E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebsiteGrpcEndpoint", "GrpcEndpoints\WebsiteGrpcEndpoint\WebsiteGrpcEndpoint.csproj", "{97F9C841-3182-4B60-9A45-59DED21A43E4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusGrpcService", "BusGrpcService\BusGrpcService.csproj", "{1F3AFB92-0738-4125-BED6-F3A4A15EB23C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusGrpcService", "GrpcServices\BusGrpcService\BusGrpcService.csproj", "{1F3AFB92-0738-4125-BED6-F3A4A15EB23C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GrpcEndpoints", "GrpcEndpoints", "{66D96424-52DC-4AC0-839A-27E9B8A12352}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GrpcServices", "GrpcServices", "{E909AD8E-784F-48AD-AF4B-62C766C3D774}"
+	ProjectSection(SolutionItems) = preProject
+		GrpcServices\BusGrpcService\Protos\BusGrpcService.proto = GrpcServices\BusGrpcService\Protos\BusGrpcService.proto
+		GrpcServices\DatabaseGrpcService.proto = GrpcServices\DatabaseGrpcService.proto
+		GrpcServices\RouteGrpcService\Protos\RouteServiceGrpc.proto = GrpcServices\RouteGrpcService\Protos\RouteServiceGrpc.proto
+		GrpcServices\TicketGrpcService\Protos\TicketGrpService.proto = GrpcServices\TicketGrpcService\Protos\TicketGrpService.proto
+	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketGrpcService", "TicketGrpcService\TicketGrpcService.csproj", "{EB3FDAB4-673F-44A2-9726-4BF035C9336C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketGrpcService", "GrpcServices\TicketGrpcService\TicketGrpcService.csproj", "{EB3FDAB4-673F-44A2-9726-4BF035C9336C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RouteGrpcService", "RouteGrpcService\RouteGrpcService.csproj", "{EFF98ABF-51C3-4B5C-B97B-59E81086FE6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RouteGrpcService", "GrpcServices\RouteGrpcService\RouteGrpcService.csproj", "{EFF98ABF-51C3-4B5C-B97B-59E81086FE6A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

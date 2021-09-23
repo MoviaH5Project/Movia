@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<UserSecretsId>11dedc0f-002a-4c54-a927-b75b6a2bdf1a</UserSecretsId>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+		<PackageReference Include="Dapper" Version="2.0.90" />
+		<PackageReference Include="Dapper.Contrib" Version="2.0.78" />
+		<PackageReference Include="Grpc.AspNetCore" Version="2.34.0" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.13" />
+		<PackageReference Include="Npgsql" Version="5.0.7" />
+		<PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Protobuf Include="..\DatabaseGrpcService.proto" GrpcServices="Server" />
+	</ItemGroup>
+
+</Project>

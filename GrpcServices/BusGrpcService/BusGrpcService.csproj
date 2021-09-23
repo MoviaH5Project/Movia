@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<UserSecretsId>19ea49b4-e888-46d2-905e-8896a061bdaa</UserSecretsId>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Grpc.AspNetCore" Version="2.34.0" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.13" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Protobuf Include="..\DatabaseGrpcService.proto" GrpcServices="Client" />
+		<Protobuf Include="..\BusGrpcService.proto" GrpcServices="Server" />
+	</ItemGroup>
+
+</Project>
