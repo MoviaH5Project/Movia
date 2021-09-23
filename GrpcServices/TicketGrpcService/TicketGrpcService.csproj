@@ -13,8 +13,8 @@
 
 
 	<ItemGroup>
-		<Protobuf Include="..\DatabaseGrpcService.proto" GrpcServices="Client" />
-		<Protobuf Include="..\TicketGrpcService.proto" GrpcServices="Server" />
+		<Protobuf Include="..\..\Protos\DatabaseGrpcService.proto" GrpcServices="Client" />
+		<Protobuf Include="..\..\Protos\TicketGrpcService.proto" GrpcServices="Server" />
 	</ItemGroup>
 
 </Project>

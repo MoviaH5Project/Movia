@@ -16,16 +16,19 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GrpcEndpoints", "GrpcEndpoints", "{66D96424-52DC-4AC0-839A-27E9B8A12352}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GrpcServices", "GrpcServices", "{E909AD8E-784F-48AD-AF4B-62C766C3D774}"
-	ProjectSection(SolutionItems) = preProject
-		GrpcServices\BusGrpcService\Protos\BusGrpcService.proto = GrpcServices\BusGrpcService\Protos\BusGrpcService.proto
-		GrpcServices\DatabaseGrpcService.proto = GrpcServices\DatabaseGrpcService.proto
-		GrpcServices\RouteGrpcService\Protos\RouteServiceGrpc.proto = GrpcServices\RouteGrpcService\Protos\RouteServiceGrpc.proto
-		GrpcServices\TicketGrpcService\Protos\TicketGrpService.proto = GrpcServices\TicketGrpcService\Protos\TicketGrpService.proto
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketGrpcService", "GrpcServices\TicketGrpcService\TicketGrpcService.csproj", "{EB3FDAB4-673F-44A2-9726-4BF035C9336C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RouteGrpcService", "GrpcServices\RouteGrpcService\RouteGrpcService.csproj", "{EFF98ABF-51C3-4B5C-B97B-59E81086FE6A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Protos", "Protos", "{540F6DD5-EB4F-47B1-A3EB-D03C4ECECFB4}"
+	ProjectSection(SolutionItems) = preProject
+		Protos\AngularGrpcService.proto = Protos\AngularGrpcService.proto
+		Protos\BusGrpcService.proto = Protos\BusGrpcService.proto
+		Protos\DatabaseGrpcService.proto = Protos\DatabaseGrpcService.proto
+		Protos\MobilGrpcService.proto = Protos\MobilGrpcService.proto
+		Protos\RouteServiceGrpc.proto = Protos\RouteServiceGrpc.proto
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
