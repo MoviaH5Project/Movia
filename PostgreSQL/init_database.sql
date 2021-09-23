@@ -1,8 +1,8 @@
-CREATE TABLE IF NOT EXISTS 'Stop' (
-    'Id' SERIAL PRIMARY KEY,
-    'Name' TEXT NOT NULL,
-    'Latitude' TEXT NOT NULL,
-    'Longitude' TEXT NOT NULL
+CREATE TABLE IF NOT EXISTS Stop (
+    Id SERIAL PRIMARY KEY,
+    Name TEXT NOT NULL,
+    Latitude TEXT NOT NULL,
+    Longitude TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Route (

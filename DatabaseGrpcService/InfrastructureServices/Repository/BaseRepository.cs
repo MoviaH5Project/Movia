@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DatabaseGrpcService.InfrastructureServices.Repository
@@ -10,7 +11,7 @@ namespace DatabaseGrpcService.InfrastructureServices.Repository
 	internal interface IBaseRepository<T>
 	{
 		Task<bool> DeleteAsync(T entity);
-		Task<IEnumerable<T>> GetAllAsync();
+		Task<List<T>> GetAllAsync();
 		Task<T> GetAsync(int id);
 		Task<int> InsertAsync(T entity);
 		Task<bool> UpdateAsync(T entity);
@@ -23,8 +24,8 @@ namespace DatabaseGrpcService.InfrastructureServices.Repository
 
 		public BaseRepository(IDbConnection dbConnection, ILogger<BaseRepository<T>> logger)
 		{
-			_dbConnection = dbConnection;
-			_logger = logger;
+			_dbConnection = dbConnection ?? throw new ArgumentNullException(nameof(dbConnection));
+			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
 		}
 
 		public async Task<T> GetAsync(int id)
@@ -42,13 +43,13 @@ namespace DatabaseGrpcService.InfrastructureServices.Repository
 			}
 		}
 
-		public async Task<IEnumerable<T>> GetAllAsync()
+		public async Task<List<T>> GetAllAsync()
 		{
 			_logger.LogInformation("Getting all entities of type {type}", typeof(T).Name);
 
 			try
 			{
-				return await _dbConnection.GetAllAsync<T>();
+				return (await _dbConnection.GetAllAsync<T>()).ToList();
 			}
 			catch (Exception ex)
 			{
@@ -59,7 +60,12 @@ namespace DatabaseGrpcService.InfrastructureServices.Repository
 
 		public async Task<int> InsertAsync(T entity)
 		{
-			_logger.LogInformation("Inserting entity {entity} of type {type}", entity, typeof(T).Name);
+			if (entity is null)
+			{
+				throw new ArgumentNullException(nameof(entity));
+			}
+
+			_logger.LogInformation("Inserting entity {@entity} of type {type}", entity, typeof(T).Name);
 			_logger.LogInformation(_dbConnection.ConnectionString);
 			_logger.LogInformation(_dbConnection.Database);
 
@@ -69,14 +75,19 @@ namespace DatabaseGrpcService.InfrastructureServices.Repository
 			}
 			catch (Exception ex)
 			{
-				_logger.LogError(ex, "Something went wrong when trying to insert entity {entity} of type {type}", entity, typeof(T).Name);
+				_logger.LogError(ex, "Something went wrong when trying to insert entity {@entity} of type {type}", entity, typeof(T).Name);
 				throw;
 			}
 		}
 
 		public async Task<bool> UpdateAsync(T entity)
 		{
-			_logger.LogInformation("Updating entity {entity} of type {type}", entity, typeof(T).Name);
+			if (entity is null)
+			{
+				throw new ArgumentNullException(nameof(entity));
+			}
+
+			_logger.LogInformation("Updating entity {@entity} of type {type}", entity, typeof(T).Name);
 
 			try
 			{
@@ -84,14 +95,19 @@ namespace DatabaseGrpcService.InfrastructureServices.Repository
 			}
 			catch (Exception ex)
 			{
-				_logger.LogError(ex, "Something went wrong when trying to update entity {entity} of type {type}", entity, typeof(T).Name);
+				_logger.LogError(ex, "Something went wrong when trying to update entity {@entity} of type {type}", entity, typeof(T).Name);
 				throw;
 			}
 		}
 
 		public async Task<bool> DeleteAsync(T entity)
 		{
-			_logger.LogInformation("Deleting entity {entity} of type {type}", entity, typeof(T).Name);
+			if (entity is null)
+			{
+				throw new ArgumentNullException(nameof(entity));
+			}
+
+			_logger.LogInformation("Deleting entity {@entity} of type {type}", entity, typeof(T).Name);
 
 			try
 			{
@@ -99,7 +115,7 @@ namespace DatabaseGrpcService.InfrastructureServices.Repository
 			}
 			catch (Exception ex)
 			{
-				_logger.LogError(ex, "Something went wrong when trying to delete entity {entity} of type {type}", entity, typeof(T).Name);
+				_logger.LogError(ex, "Something went wrong when trying to delete entity {@entity} of type {type}", entity, typeof(T).Name);
 				throw;
 			}
 		}
