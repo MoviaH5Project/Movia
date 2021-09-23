@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 using Grpc.Core;
 using Google.Protobuf;
 using MobilEndPointGrpcService;
-using MobilEndPointGrpcService.Protos;
 using Grpc.Net.Client;
-using database = DatabaseGrpcService.Protos;
 using System.Net.Http;
 
 namespace MobilEndPointGrpcService.Services
@@ -16,8 +14,9 @@ namespace MobilEndPointGrpcService.Services
     /// <summary>
     /// This services is is the endpoint for the mobil application.
     /// </summary>
-    public class MobilGrpc : BusGrpcService.BusGrpcServiceBase
+    public class MobilGrpc
     {
+        /*
         #region Props
         private static database.DatabaseGrpcService.DatabaseGrpcServiceClient channel;
         private readonly ILogger<MobilGrpc> _logger;
@@ -167,5 +166,6 @@ namespace MobilEndPointGrpcService.Services
             return Task.FromResult(new DatabaseChagedBus { Succeeded = repley });
         }
         #endregion
+        */
     }
 }

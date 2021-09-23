@@ -1,10 +1,10 @@
 syntax = "proto3";
 //import "google/protobuf/empty.proto";
-option csharp_namespace = "BusGrpcService.Protos";
+option csharp_namespace = "WebsiteGrpcEndpoint.Protos";
 import "google/protobuf/timestamp.proto";
-package BusGrpcService;
+package WebsiteGrpcEndpoint;
 
-service BusGrpcService {
+service WebsiteGrpcEndpoint {
 //Crud start
 rpc CreateBus(Bus) returns (DatabaseChagedBus);
 rpc GetBusInfo(BusRequest) returns (Bus);

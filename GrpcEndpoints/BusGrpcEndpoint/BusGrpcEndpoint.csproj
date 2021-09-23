@@ -1,10 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
 		<TargetFramework>net5.0</TargetFramework>
 		<UserSecretsId>327723aa-d9b8-4eb9-a7f4-31ed953a57c7</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Services\**" />
+	  <Content Remove="Services\**" />
+	  <EmbeddedResource Remove="Services\**" />
+	  <None Remove="Services\**" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Grpc.AspNetCore" Version="2.34.0" />
@@ -14,10 +21,7 @@
 	<ItemGroup>
 		<Protobuf Include="..\..\Protos\BusGrpcService.proto" GrpcServices="Client" />
 		<Protobuf Include="..\..\Protos\TicketGrpcService.proto" GrpcServices="Client" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Services\" />
+		<Protobuf Include="..\..\Protos\BusGrpcEndpoint.proto" GrpcServices="Server" />
 	</ItemGroup>
 
 </Project>

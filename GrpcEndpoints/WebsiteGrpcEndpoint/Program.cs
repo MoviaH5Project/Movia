@@ -12,7 +12,7 @@ namespace AngularGrpcServiceEndPoint
     {
         public static void Main(string[] args)
         {
-            new Services.DatabaseGrpcProtoService().TT();
+            
             CreateHostBuilder(args).Build().Run();
         }
 

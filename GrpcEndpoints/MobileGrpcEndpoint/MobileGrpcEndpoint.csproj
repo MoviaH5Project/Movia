@@ -15,6 +15,7 @@
 		<Protobuf Include="..\..\Protos\BusGrpcService.proto" GrpcServices="Client" />
 		<Protobuf Include="..\..\Protos\TicketGrpcService.proto" GrpcServices="Client" />
 		<Protobuf Include="..\..\Protos\RouteGrpcService.proto" GrpcServices="Client" />
+		<Protobuf Include="..\..\Protos\MobileGrpcEndpoint.proto" GrpcServices="Server" />
 	</ItemGroup>
 
 </Project>

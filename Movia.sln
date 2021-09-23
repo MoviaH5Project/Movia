@@ -23,12 +23,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RouteGrpcService", "GrpcSer
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Protos", "Protos", "{540F6DD5-EB4F-47B1-A3EB-D03C4ECECFB4}"
 	ProjectSection(SolutionItems) = preProject
-		Protos\AngularGrpcService.proto = Protos\AngularGrpcService.proto
+		Protos\BusGrpcEndpoint.proto = Protos\BusGrpcEndpoint.proto
 		Protos\BusGrpcService.proto = Protos\BusGrpcService.proto
 		Protos\DatabaseGrpcService.proto = Protos\DatabaseGrpcService.proto
-		Protos\MobilGrpcService.proto = Protos\MobilGrpcService.proto
+		Protos\MobileGrpcEndpoint.proto = Protos\MobileGrpcEndpoint.proto
 		Protos\RouteGrpcService.proto = Protos\RouteGrpcService.proto
 		Protos\TicketGrpcService.proto = Protos\TicketGrpcService.proto
+		Protos\WebsiteGrpcEndpoint.proto = Protos\WebsiteGrpcEndpoint.proto
 	EndProjectSection
 EndProject
 Global

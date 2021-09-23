@@ -1,5 +1,4 @@
-﻿using DatabaseGrpcService.Protos;
-using Grpc.Core;
+﻿using Grpc.Core;
 using Grpc.Net.Client;
 using System;
 using System.Collections.Generic;
@@ -8,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace AngularGrpcServiceEndPoint.Services
 {
-    public class DatabaseGrpcProtoService : DatabaseGrpcService.Protos.DatabaseGrpcService.DatabaseGrpcServiceClient
+    public class DatabaseGrpcProtoService
     {
-        private static DatabaseGrpcService.Protos.DatabaseGrpcService.DatabaseGrpcServiceClient channel;
-
+        //private static DatabaseGrpcService.Protos.DatabaseGrpcService.DatabaseGrpcServiceClient channel;
+        /*
         public DatabaseGrpcProtoService()
         {
 #if DEBUG
@@ -35,5 +34,6 @@ namespace AngularGrpcServiceEndPoint.Services
         {
             Console.WriteLine(channel.GetAllFobs(new DatabaseGrpcService.Protos.Request()).Fobs.ToList<Fob>()[0].Id);
         }
+        */
     }
 }

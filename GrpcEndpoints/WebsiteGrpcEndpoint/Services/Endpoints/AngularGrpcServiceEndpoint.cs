@@ -1,16 +1,15 @@
 ﻿using Grpc.Core;
 using Microsoft.Extensions.Logging;
-using MobilEndPointGrpcService.Protos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using database = DatabaseGrpcService.Protos;
+//using database =
 using Google.Protobuf;
 
 namespace AngularGrpcServiceEndPoint.Services
 {
-    public class AngularGrpcServiceEndpoint : MobilEndPointGrpcService.Protos.BusGrpcService.BusGrpcServiceBase
+    public class AngularGrpcServiceEndpoint  
     {
         private static ILogger logger;
         private DatabaseGrpcProtoService dataservice;
@@ -22,7 +21,7 @@ namespace AngularGrpcServiceEndPoint.Services
             }
             logger = _logger;
         }
-
+        /*
         public override Task<DatabaseChagedBus> CreateBus(Bus request, ServerCallContext context)
         {
 
@@ -52,6 +51,6 @@ namespace AngularGrpcServiceEndPoint.Services
         {
             return base.UpdatePassagseCount(request, context);
         }
-
+        */
     }
 }

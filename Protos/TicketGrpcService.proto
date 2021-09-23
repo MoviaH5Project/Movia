@@ -1,8 +1,8 @@
 syntax = "proto3";
-option csharp_namespace = "MobilEndPointGrpcService.Protos";
-package TicketGrpcSerive;
+option csharp_namespace = "TicketGrpcService.Protos";
+package TicketGrpcService;
 import "google/protobuf/timestamp.proto";
-service TicketGrpcSerive {
+service TicketGrpcService {
  //Crud start
 rpc CreateTicket(TicketRequest) returns (DatabaseChagedTicket);
 rpc Getticket(TicketRequest) returns (Ticket);
