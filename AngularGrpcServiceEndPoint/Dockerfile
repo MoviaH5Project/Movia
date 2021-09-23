@@ -7,16 +7,16 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["MobilEndPointGrpcService.csproj", ""]
-RUN dotnet restore "./MobilEndPointGrpcService.csproj"
+COPY ["AngularGrpcServiceEndPoint.csproj", ""]
+RUN dotnet restore "./DatabaseGrpcService.csproj"
 COPY . .
 WORKDIR "/src/"
-RUN dotnet build "MobilEndPointGrpcService.csproj" -c Release -o /app/build
+RUN dotnet build "AngularGrpcServiceEndPoint.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "MobilEndPointGrpcService.csproj" -c Release -o /app/publish
+RUN dotnet publish "AngularGrpcServiceEndPoint.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "MobilEndPointGrpcService.dll"]
+ENTRYPOINT ["dotnet", "AngularGrpcServiceEndPoint.dll"]

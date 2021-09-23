@@ -24,6 +24,7 @@ namespace DatabaseGrpcService.ApplicationServices
 		private readonly INfcRepository _nfcRepository;
 		private readonly ILogger<GrpcService> _logger;
 
+
 		#endregion
 
 		#region Constructor
@@ -49,6 +50,7 @@ namespace DatabaseGrpcService.ApplicationServices
 			_nfcRepository = nfcRepository ?? throw new ArgumentNullException(nameof(nfcRepository));
 			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
 		}
+#endregion
 
 		#endregion
 
