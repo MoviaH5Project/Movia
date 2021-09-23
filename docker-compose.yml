@@ -22,8 +22,8 @@ services:
 
   website_endpoint:
     build:
-      context: ./AngularGrpcServiceEndPoint
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./GrpcEndpoints/WebsiteGrpcEndpoint/Dockerfile
     depends_on: 
       - bus_service
       - route_service
@@ -38,8 +38,8 @@ services:
 
   mobile_endpoint:
     build:
-      context: ./AngularGrpcServiceEndPoint
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./GrpcEndpoints/MobileGrpcEndpoint/Dockerfile
     depends_on: 
       - bus_service
       - ticket_service
@@ -56,8 +56,8 @@ services:
 
   bus_endpoint:
     build:
-      context: ./AngularGrpcServiceEndPoint
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./GrpcEndpoints/BusGrpcEndpoint/Dockerfile
     depends_on: 
       - bus_service
       - ticket_service
@@ -72,8 +72,8 @@ services:
 
   bus_service:
     build:
-      context: ./BusGrpcService
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./GrpcServices/BusGrpcService/Dockerfile
     depends_on: 
       - database_service
     environment: 
@@ -82,10 +82,10 @@ services:
     networks: 
       - movia_network
 
-  ticket_services:
+  ticket_service:
     build:
-      context: ./TicketGrpcService
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./GrpcServices/TicketGrpcService/Dockerfile
     depends_on: 
       - database_service
     environment: 
@@ -96,8 +96,8 @@ services:
 
   route_service:
     build:
-      context: ./RouteGrpcService
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./GrpcServices/RouteGrpcService/Dockerfile
     depends_on: 
       - database_service
     environment: 
@@ -108,8 +108,8 @@ services:
 
   database_service:
     build:
-      context: ./DatabaseGrpcService
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./GrpcServices/DatabaseGrpcService/Dockerfile
     depends_on: 
       - postgres_database
     environment: 
