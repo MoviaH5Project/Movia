@@ -52,8 +52,6 @@ namespace DatabaseGrpcService.ApplicationServices
 		}
 #endregion
 
-		#endregion
-
 		#region Bus
 
 		public override async Task<Response> CreateBus(Bus request, ServerCallContext context)

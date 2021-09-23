@@ -5,20 +5,28 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using database = DatabaseGrpcService.Protos;
+using Google.Protobuf;
 
 namespace AngularGrpcServiceEndPoint.Services
 {
     public class AngularGrpcServiceEndpoint : MobilEndPointGrpcService.Protos.BusGrpcService.BusGrpcServiceBase
     {
         private static ILogger logger;
+        private DatabaseGrpcProtoService dataservice;
         public AngularGrpcServiceEndpoint(ILogger _logger)
         {
+            if (dataservice == null)
+            {
+                dataservice = new DatabaseGrpcProtoService();
+            }
             logger = _logger;
         }
 
         public override Task<DatabaseChagedBus> CreateBus(Bus request, ServerCallContext context)
         {
-            return base.CreateBus(request, context);
+
+            return Task.FromResult(DatabaseChagedBus.Parser.ParseFrom(dataservice.CreateBus(database.Bus.Parser.ParseFrom(request.ToByteArray())).ToByteArray()));
         }
         public override Task<DatabaseChagedBus> DeleteBus(Bus request, ServerCallContext context)
         {

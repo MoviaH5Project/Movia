@@ -9,7 +9,7 @@ namespace AngularGrpcServiceEndPoint.Services
 {
     public class BusGrpcService
     {
-        private static MobilEndPointGrpcService.Protos.DatabaseGrpcServiceClient channel;
+        private static DatabaseGrpcService.Protos.DatabaseGrpcService.DatabaseGrpcServiceClient channel;
         public BusGrpcService()
         {
             

@@ -4,7 +4,7 @@ option csharp_namespace = "MobilEndPointGrpcService.Protos";
 
 package MobilGrpcProto;
 
-
+import "google/protobuf/timestamp.proto";
 service TicketGrpcSerive {
  //Crud start
 rpc CreateTicket(TicketRequest) returns (DatabaseChagedTicket);

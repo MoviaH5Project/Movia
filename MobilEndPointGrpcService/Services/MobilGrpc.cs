@@ -63,7 +63,7 @@ namespace MobilEndPointGrpcService.Services
         public override Task<DatabaseChagedBus> UpdatePassagseCount(Bus request, ServerCallContext context)
         {
 #if DEBUG
-            return Task.FromResult(new DatabaseChagedBus { Haschanbged = false });
+            return Task.FromResult(new DatabaseChagedBus { Succeeded = false });
 #endif
             _logger.Log(LogLevel.Information, $"{context.Method} has been called by host: {context.Host}");
             Console.WriteLine($"{context.Host} called: UpdatePassagseCount");
@@ -82,7 +82,7 @@ namespace MobilEndPointGrpcService.Services
         public override Task<DatabaseChagedBus> CreateBus(Bus request, ServerCallContext context)
         {
 #if DEBUG
-            return Task.FromResult(new DatabaseChagedBus { Haschanbged = false });
+            return Task.FromResult(new DatabaseChagedBus { Succeeded = false });
 #endif
             _logger.Log(LogLevel.Information, $"{context.Method} has been called by host: {context.Host}");
             return base.CreateBus(request, context);
@@ -97,14 +97,14 @@ namespace MobilEndPointGrpcService.Services
         {
             _logger.Log(LogLevel.Information, $"{context.Method} has been called by host: {context.Host}");
 #if DEBUG
-            return Task.FromResult(new DatabaseChagedBus { Haschanbged = false });
+            return Task.FromResult(new DatabaseChagedBus { Succeeded = false });
 
 #endif
             database.Bus databaseBus = database.Bus.Parser.ParseFrom(request.ToByteArray());
             //MobilService Proto Object converting
             bool repley = channel.DeleteBus(new database.Request { Id = request.Id }).Succeeded;
 
-            return Task.FromResult(new DatabaseChagedBus { Haschanbged = repley });
+            return Task.FromResult(new DatabaseChagedBus { Succeeded = repley });
         }
         /// <summary>
         /// gets a single bus by id, returns the bus object.
@@ -137,14 +137,14 @@ namespace MobilEndPointGrpcService.Services
         {
             _logger.Log(LogLevel.Information, $"{context.Method} has been called by host: {context.Host}");
 #if DEBUG
-            return Task.FromResult(new DatabaseChagedBus { Haschanbged = false });
+            return Task.FromResult(new DatabaseChagedBus { Succeeded = false });
 #endif
 
             database.Bus databaseBus = database.Bus.Parser.ParseFrom(request.ToByteArray());
             //MobilService Proto Object converting
             bool repley = channel.UpdateBus(database.Bus.Parser.ParseFrom(channel.UpdateBus(databaseBus).ToByteArray())).Succeeded;
 
-            return Task.FromResult(new DatabaseChagedBus { Haschanbged = repley });
+            return Task.FromResult(new DatabaseChagedBus { Succeeded = repley });
 
         }
         /// <summary>
@@ -157,14 +157,14 @@ namespace MobilEndPointGrpcService.Services
         {
             _logger.Log(LogLevel.Information, $"{context.Method} has been called by host: {context.Host}");
 #if DEBUG
-            return Task.FromResult(new DatabaseChagedBus { Haschanbged = false });
+            return Task.FromResult(new DatabaseChagedBus { Succeeded = false });
 #endif
 
             database.Bus databaseBus = database.Bus.Parser.ParseFrom(request.ToByteArray());
             //MobilService Proto Object converting
             bool repley = channel.UpdateBus(database.Bus.Parser.ParseFrom(channel.UpdateBus(databaseBus).ToByteArray())).Succeeded;
 
-            return Task.FromResult(new DatabaseChagedBus { Haschanbged = repley });
+            return Task.FromResult(new DatabaseChagedBus { Succeeded = repley });
         }
         #endregion
     }

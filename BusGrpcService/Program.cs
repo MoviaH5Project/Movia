@@ -6,13 +6,12 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AngularGrpcServiceEndPoint
+namespace BusGrpcService
 {
     public class Program
     {
         public static void Main(string[] args)
         {
-            new Services.DatabaseGrpcProtoService().TT();
             CreateHostBuilder(args).Build().Run();
         }
 

@@ -28,5 +28,5 @@ message Routes{
 }
 
 message DatabaseChagedRoute{
-    bool haschanbged = 1;
+    bool succeeded = 1;
 }

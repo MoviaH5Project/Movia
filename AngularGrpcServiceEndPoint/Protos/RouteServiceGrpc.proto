@@ -3,7 +3,7 @@ syntax = "proto3";
 option csharp_namespace = "MobilEndPointGrpcService.Protos";
 
 package RouteServiceGrpc;
-
+import "google/protobuf/timestamp.proto";
 
 service RouteGrpcService {
 
