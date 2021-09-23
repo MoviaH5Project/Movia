@@ -7,7 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="DatabaseGrpcService.proto" />
+    <None Remove="Protos\RouteServiceGrpc.proto" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="Protos\DatabaseGrpcService.proto" GrpcServices="Client" />
     <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
+    <Protobuf Include="Protos\RouteServiceGrpc.proto" GrpcServices="Server" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+option csharp_namespace = "MobilEndPointGrpcService.Protos";
+
+package RouteServiceGrpc;
+import "google/protobuf/timestamp.proto";
+
+service RouteGrpcService {
+
+  rpc GetRoutes (RoutesRequest) returns (Routes);
+  rpc CreateRoutes (RoutesRequest) returns(DatabaseChagedRoute);
+  rpc UpdateRoute (RoutesRequest) returns(DatabaseChagedRoute);
+  rpc RemoveRoute(RoutesRequest) returns(DatabaseChagedRoute);
+}
+
+message RoutesRequest {
+  string name = 1;
+  string bus = 2;
+}
+message Route{
+	string name = 1;
+	string dateOfPurscsss = 2;
+	int32 price = 3;
+}
+
+message Routes{
+	 repeated Route listTickets = 1;
+}
+
+message DatabaseChagedRoute{
+    bool haschanbged = 1;
+}
