@@ -5,17 +5,24 @@ import "google/protobuf/timestamp.proto";
 package BusGrpcEndpoint;
 
 service BusGrpcEndpoint {
-//Crud start
-rpc CreateBus(Bus) returns (DatabaseChagedBus);
-rpc GetBusInfo(BusRequest) returns (Bus);
-rpc UpdateBusInfo(Bus) returns (DatabaseChagedBus);
-rpc DeleteBus(Bus) returns (DatabaseChagedBus);
-//Crud End
-rpc GetAllBuss(BusRequest) returns(BusList);
-rpc UpdaeBusPoscition(Bus) returns (DatabaseChagedBus);
-rpc UpdatePassagseCount(Bus) returns (DatabaseChagedBus); // Increments the bus passagse count or decroments
+
+rpc GetBusInfo(Request) returns (Bus);
+rpc UpdateBusInfo(Bus) returns (Respones);
+
+rpc GetNfc(Request) returns (Nfc);
+rpc GetFob(Request) returns (Fob);
+
+
 }
 
+
+message Request {
+	int32 id = 1;
+}
+
+message Response {
+	bool succeeded = 1;
+}
 
 message Bus {
 	int32 id = 1;
@@ -29,14 +36,15 @@ message Bus {
 	string longitude = 9;
 }
 
-message BusList{
-    repeated Bus buslist = 1;
+message Fob {
+	int32 id = 1;
+	string mac_address = 2;
+	int32 passenger_id = 3;
 }
 
-message DatabaseChagedBus{
-    bool haschanbged = 1;
+message Nfc {
+	int32 id = 1;
+	string uuid = 2;
+	int32 passenger_id = 3;
 }
 
-message BusRequest{
-int32 id = 1;
-}
