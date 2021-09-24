@@ -30,23 +30,27 @@ namespace AngularGrpcServiceEndPoint.Services
             }
         }
         #region Bus Crud
-        public override DatabaseChagedBus CreateBus(Bus request, CallOptions options)
+        public override Response CreateBus(Bus request, CallOptions options)
         {
             return channel.CreateBus(request);
             
         }
-        public override DatabaseChagedBus DeleteBus(Bus request, CallOptions options)
+        public override Response DeleteBus(Request request, CallOptions options)
         {
             return channel.DeleteBus(request);
+        
         }
-        public override BusList GetAllBuss(BusRequest request, CallOptions options)
+        
+        public override BusList GetAllBusses(Request request, CallOptions options)
         {
-            return channel.GetAllBuss(request);
+            return channel.GetAllBusses(request);
         }
-        public override Bus GetBusInfo(BusRequest request, CallOptions options)
+        public override Bus GetBus(Request request, CallOptions options)
         {
-            return channel.GetBusInfo(request);
+            return channel.GetBus(request);
+            
         }
+        
         #endregion       
 
     }

@@ -7,26 +7,25 @@ import "google/protobuf/timestamp.proto";
 
 service RouteGrpcService {
 
-  rpc GetRoutes (RoutesRequest) returns (Routes);
-  rpc CreateRoutes (RoutesRequest) returns(DatabaseChagedRoute);
-  rpc UpdateRoute (RoutesRequest) returns(DatabaseChagedRoute);
-  rpc RemoveRoute(RoutesRequest) returns(DatabaseChagedRoute);
+  rpc GetRoutes (Request) returns (RouteList);
+  rpc CreateRoutes (Route) returns(Response);
+  rpc UpdateRoute (Route) returns(Response);
+  rpc RemoveRoute(Route) returns(Response);
 }
 
-message RoutesRequest {
-  string name = 1;
-  string bus = 2;
-}
-message Route{
-	string name = 1;
-	string dateOfPurscsss = 2;
-	int32 price = 3;
+message Route {
+	int32 id = 1;
+	string name = 2;
 }
 
-message Routes{
-	 repeated Route listTickets = 1;
+message RouteList	{
+	repeated Route Routes = 1;
 }
 
-message DatabaseChagedRoute{
-    bool haschanbged = 1;
+message Request {
+	int32 id = 1;
+}
+
+message Response {
+	bool succeeded = 1;
 }
