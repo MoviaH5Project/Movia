@@ -12,13 +12,18 @@ rpc UpdateBusInfo(Bus) returns (Respones);
 rpc GetNfc(Request) returns (Nfc);
 rpc GetFob(Request) returns (Fob);
 
+rpc ValidateTicket(BusTicket) returns(Response);
 
 }
 
+message BusTicket{
+Fob fob = 1;
+Nfc nfc = 2;
+}
 
 message Request {
 	int32 id = 1;
-}
+	}
 
 message Response {
 	bool succeeded = 1;
