@@ -4,53 +4,65 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-//using database =
+using BusData = BusGrpcService.Protos;
+using website = WebsiteGrpcEndpoint.Protos;
+using RouteData = WebsiteGrpcEndpoint.Services.CallServices;
 using Google.Protobuf;
+using WebsiteGrpcEndpoint.Protos;
 
 namespace AngularGrpcServiceEndPoint.Services
 {
-    public class AngularGrpcServiceEndpoint  
+    public class AngularGrpcServiceEndpoint : WebsiteGrpcEndpoint.Protos.WebsiteGrpcEndpoint.WebsiteGrpcEndpointBase
     {
+
         private static ILogger logger;
-        private DatabaseGrpcProtoService dataservice;
+        private static BusGrpcService dataservice;
+        private static RouteData.RouteService routedataservice;
         public AngularGrpcServiceEndpoint(ILogger _logger)
         {
             if (dataservice == null)
             {
-                dataservice = new DatabaseGrpcProtoService();
+                dataservice = new BusGrpcService(null);
             }
             logger = _logger;
         }
-        /*
-        public override Task<DatabaseChagedBus> CreateBus(Bus request, ServerCallContext context)
+        
+        #region Bus Crud
+        public override Task<website.Response> CreateBus(website.Bus request, ServerCallContext context)
         {
-
-            return Task.FromResult(DatabaseChagedBus.Parser.ParseFrom(dataservice.CreateBus(database.Bus.Parser.ParseFrom(request.ToByteArray())).ToByteArray()));
+            return Task.FromResult(website.Response.Parser.ParseFrom(dataservice.CreateBus(BusData.Bus.Parser.ParseFrom(request.ToByteArray())).ToByteArray()));
         }
-        public override Task<DatabaseChagedBus> DeleteBus(Bus request, ServerCallContext context)
+        public override Task<website.Response> DeleteBus(website.Request request, ServerCallContext context)
         {
             return base.DeleteBus(request, context);
         }
-        public override Task<BusList> GetAllBuss(BusRequest request, ServerCallContext context)
+        public override Task<website.BusList> GetAllBusses(website.Request request, ServerCallContext context)
         {
-            return base.GetAllBuss(request, context);
+            return Task.FromResult(website.BusList.Parser.ParseFrom(dataservice.GetAllBuss(BusData.BusRequest.Parser.ParseFrom(request.ToByteArray())).ToByteArray()));
+            
         }
-        public override Task<Bus> GetBusInfo(BusRequest request, ServerCallContext context)
+        public override Task<website.Bus> GetBus(website.Request request, ServerCallContext context)
         {
-            return base.GetBusInfo(request, context);
+            return Task.FromResult(website.Bus.Parser.ParseFrom(dataservice.GetAllBuss(BusData.BusRequest.Parser.ParseFrom(request.ToByteArray())).ToByteArray()));
         }
-        public override Task<DatabaseChagedBus> UpdaeBusPoscition(Bus request, ServerCallContext context)
+        #endregion
+        #region Route Crud
+        public override Task<Response> UpdateRoute(Route request, ServerCallContext context)
         {
-            return base.UpdaeBusPoscition(request, context);
+            return Task.FromResult(website.Response.Parser.ParseFrom(dataservice.CreateBus(BusData.Bus.Parser.ParseFrom(request.ToByteArray())).ToByteArray()));
         }
-        public override Task<DatabaseChagedBus> UpdateBusInfo(Bus request, ServerCallContext context)
+        public override Task<Response> CreateRoute(Route request, ServerCallContext context)
         {
-            return base.UpdateBusInfo(request, context);
+            return Task.FromResult(website.Response.Parser.ParseFrom(dataservice.CreateBus(BusData.Bus.Parser.ParseFrom(request.ToByteArray())).ToByteArray()));
         }
-        public override Task<DatabaseChagedBus> UpdatePassagseCount(Bus request, ServerCallContext context)
+        public override Task<Response> DeleteRoute(Request request, ServerCallContext context)
         {
-            return base.UpdatePassagseCount(request, context);
+            return Task.FromResult(website.Response.Parser.ParseFrom(dataservice.CreateBus(BusData.Bus.Parser.ParseFrom(request.ToByteArray())).ToByteArray()));
         }
-        */
+        public override Task<RouteList> GetAllRoutes(Request request, ServerCallContext context)
+        {
+            return Task.FromResult(website.RouteList.Parser.ParseFrom(dataservice.CreateBus(BusData.Bus.Parser.ParseFrom(request.ToByteArray())).ToByteArray()));
+        }
+        #endregion
     }
 }
