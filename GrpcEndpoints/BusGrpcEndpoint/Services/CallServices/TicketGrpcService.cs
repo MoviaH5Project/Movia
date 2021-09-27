@@ -1,4 +1,5 @@
-﻿using Grpc.Core;
+﻿using BusGrpcEndpoint.Protos;
+using Grpc.Core;
 using Grpc.Net.Client;
 using System;
 using System.Collections.Generic;
@@ -24,8 +25,17 @@ namespace BusGrpcEndpoint.Services.CallServices
                 }));
             }
         }
-        public Task<data.Ticket> Getticket(data.TicketRequest request) {
-            return Task.FromResult(channel.Getticket(request));
+        public Task<data.Ticket> Getticket(data.Request request) {
+            return Task.FromResult(channel.GetTicket(request));
+        }
+
+        public Task<data.Response> CheakIn(Nfc request)
+        {
+            return Task.FromResult(new data.Response());
+        }
+        public Task<data.Response> CheckOut(Fob fob)
+        {
+            return Task.FromResult(new data.Response());
         }
     }
 }
