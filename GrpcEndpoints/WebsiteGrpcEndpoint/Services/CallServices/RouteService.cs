@@ -18,7 +18,7 @@ namespace WebsiteGrpcEndpoint.Services.CallServices
         {
             if (channel == null)
             {
-                channel = new RouteGrpcService.Protos.RouteGrpcService.RouteGrpcServiceClient(GrpcChannel.ForAddress("http://193.106.164.115:5100", new GrpcChannelOptions
+                channel = new RouteGrpcService.Protos.RouteGrpcService.RouteGrpcServiceClient(GrpcChannel.ForAddress(Environment.GetEnvironmentVariable("ROUTE_SERIVCE_URL"), new GrpcChannelOptions
                 {
                     MaxReceiveMessageSize = 0,
                     MaxSendMessageSize = 0,                    

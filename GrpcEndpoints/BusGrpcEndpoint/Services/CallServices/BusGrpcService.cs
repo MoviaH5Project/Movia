@@ -10,7 +10,7 @@ using Grpc.Net.Client;
 using Microsoft.Extensions.Logging;
 //using Microsoft.Extensions
 
-namespace AngularGrpcServiceEndPoint.Services
+namespace BusGrpcEndpoint.Services
 {
     public class BusGrpcService : grpcservice.BusGrpcService.BusGrpcServiceClient
     {
@@ -21,7 +21,7 @@ namespace AngularGrpcServiceEndPoint.Services
             _logger.LogDebug("Channel BusGrpc Service have been created");
             if (channel == null)
             {
-                channel = new grpcservice.BusGrpcService.BusGrpcServiceClient(GrpcChannel.ForAddress(Environment.GetEnvironmentVariable("BUS_SERIVCE_URL"), new GrpcChannelOptions
+                channel = new grpcservice.BusGrpcService.BusGrpcServiceClient(GrpcChannel.ForAddress(Environment.GetEnvironmentVariable("BUS_SERVICE_URL"), new GrpcChannelOptions
                 {
                     MaxReceiveMessageSize = 0,
                     MaxSendMessageSize = 0,
