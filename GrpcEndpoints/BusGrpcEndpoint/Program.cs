@@ -21,7 +21,10 @@ namespace RouteEndpointGrpcService
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder.ConfigureKestrel(x => {
+                        x.Listen(System.Net.IPAddress.Any, 5200);
+                    }).UseStartup<Startup>();
+                    //webBuilder.UseStartup<Startup>();
                 });
     }
 }

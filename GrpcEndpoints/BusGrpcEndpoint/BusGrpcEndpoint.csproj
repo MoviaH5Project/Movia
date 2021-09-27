@@ -17,8 +17,4 @@
 		<Protobuf Include="..\..\Protos\BusGrpcEndpoint.proto" GrpcServices="Server" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Compile Include="Services\EtEllerAndetDetErLigeMegetHvadDuKalderDenDuKan.cs" />
-	</ItemGroup>
-
 </Project>
