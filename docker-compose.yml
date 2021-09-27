@@ -120,8 +120,8 @@ services:
 
   postgres_database:
     build: 
-      context: ./postgreSQL
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./PostgreSQL/Dockerfile
     volumes: 
       - postgres_data:/var/lib/postgresql/data/
     environment: 
