@@ -29,7 +29,7 @@ namespace BusGrpcEndpoint.Services
         }
         public override Task<Fob> GetFob(Nfc request, ServerCallContext context)
         {
-            TicketGrpcService.Protos.Ticket ticket = ticketserverChannel.Getticket(TicketGrpcService.Protos.TicketRequest.Parser.ParseFrom(request.ToByteArray())).Result;
+            TicketGrpcService.Protos.Ticket ticket = ticketserverChannel.Getticket(TicketGrpcService.Protos.Request.Parser.ParseFrom(request.ToByteArray())).Result;
             return Task.FromResult(Fob.Parser.ParseFrom(ticket.ToByteArray()));
         }
         

@@ -24,8 +24,8 @@ namespace BusGrpcEndpoint.Services.CallServices
                 }));
             }
         }
-        public Task<data.Ticket> Getticket(data.TicketRequest request) {
-            return Task.FromResult(channel.Getticket(request));
+        public Task<data.Ticket> Getticket(data.Request request) {
+            return Task.FromResult(channel.GetTicket(request));
         }
     }
 }

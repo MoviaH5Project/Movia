@@ -11,7 +11,7 @@ namespace WebsiteGrpcEndpoint.Services.CallServices
     /// <summary>
     /// This acts like a proxy in its the one that kowns the data strutur at the databaseservice.
     /// </summary>
-    public class RouteService : RouteGrpcService.Protos.RouteGrpcService.RouteGrpcServiceClient
+    public class RouteService
     {
         RouteGrpcService.Protos.RouteGrpcService.RouteGrpcServiceClient channel;
         public RouteService()
@@ -33,21 +33,21 @@ namespace WebsiteGrpcEndpoint.Services.CallServices
         /// <param name="request">A New Bus Route</param>
         /// <param name="options"></param>
         /// <returns></returns>
-        public override Response CreateRoutes(Route request, CallOptions options)
+        public Response CreateRoutes(Route request)
         {
-            return base.CreateRoutes(request, options);
+            return channel.CreateRoute(request);
         }
-        public override RouteList GetRoutes(Request request, CallOptions options)
+        public  RouteList GetRoutes(Request request)
         {
-            return base.GetRoutes(request, options);
+            return channel.GetAllRoutes(request);
         }
-        public override Response RemoveRoute(Route request, CallOptions options)
+        public  Response RemoveRoute(Request request)
         {
-            return base.RemoveRoute(request, options);
+            return channel.DeleteRoute(request);
         }
-        public override Response UpdateRoute(Route request, CallOptions options)
+        public  Response UpdateRoute(Route request)
         {
-            return base.UpdateRoute(request, options);
+            return channel.UpdateRoute(request);
         }
         
     }
