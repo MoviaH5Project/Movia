@@ -6,7 +6,7 @@ WORKDIR /src
 COPY ./GrpcEndpoints/MobileGrpcEndpoint/MobileGrpcEndpoint.csproj ./GrpcEndpoints/MobileGrpcEndpoint/
 RUN dotnet restore ./GrpcEndpoints/MobileGrpcEndpoint/MobileGrpcEndpoint.csproj
 
-COPY ./Protos/MobileGrpcService.proto ./Protos/
+COPY ./Protos/BusGrpcService.proto ./Protos/
 COPY ./Protos/TicketGrpcService.proto ./Protos/
 COPY ./Protos/RouteGrpcService.proto ./Protos/
 COPY ./Protos/MobileGrpcEndpoint.proto ./Protos/
