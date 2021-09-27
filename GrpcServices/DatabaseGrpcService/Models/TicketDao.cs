@@ -8,7 +8,8 @@ namespace DatabaseGrpcService.Models
 	{
 		[Key]
 		public int id { get; set; }
-		public int busId { get; set; }
+		public int busid { get; set; }
+		public int passengerid { get; set; }
 		public DateTime purchasetime { get; set; }
 		public DateTime departuretime { get; set; }
 		public int departurestopid { get; set; }
