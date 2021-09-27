@@ -5,15 +5,54 @@ import "google/protobuf/timestamp.proto";
 package WebsiteGrpcEndpoint;
 
 service WebsiteGrpcEndpoint {
-//Crud start
-rpc CreateBus(Bus) returns (DatabaseChagedBus);
-rpc GetBusInfo(BusRequest) returns (Bus);
-rpc UpdateBusInfo(Bus) returns (DatabaseChagedBus);
-rpc DeleteBus(Bus) returns (DatabaseChagedBus);
-//Crud End
-rpc GetAllBuss(BusRequest) returns(BusList);
-rpc UpdaeBusPoscition(Bus) returns (DatabaseChagedBus);
-rpc UpdatePassagseCount(Bus) returns (DatabaseChagedBus); // Increments the bus passagse count or decroments
+
+rpc CreateBus(Bus) returns (Response);
+rpc GetBus(Request) returns (Bus);
+rpc GetAllBusses(Request) returns (BusList);
+rpc UpdateBus(Bus) returns (Response);
+rpc DeleteBus(Request) returns (Response);
+
+// Stop CRUD
+rpc CreateStop(Stop) returns (Response);
+rpc GetStop(Request) returns (Stop);
+rpc GetAllStops(Request) returns (StopList);
+rpc UpdateStop(Stop) returns (Response);
+rpc DeleteStop(Request) returns (Response);
+
+// Route CRUD
+rpc CreateRoute(Route) returns (Response);
+rpc GetRoute(Request) returns (Route);
+rpc GetAllRoutes(Request) returns (RouteList);
+rpc UpdateRoute(Route) returns (Response);
+rpc DeleteRoute(Request) returns (Response);
+
+// Passenger CRUD
+rpc CreatePassenger(Passenger) returns (Response);
+rpc GetPassenger(Request) returns (Passenger);
+rpc GetAllPassengers(Request) returns (PassengerList);
+rpc UpdatePassenger(Passenger) returns (Response);
+rpc DeletePassenger(Request) returns (Response);
+
+// Ticket CRUD
+rpc CreateTicket(Ticket) returns (Response);
+rpc GetTicket(Request) returns (Ticket);
+rpc GetAllTickets(Request) returns (TicketList);
+rpc UpdateTicket(Ticket) returns (Response);
+rpc DeleteTicket(Request) returns (Response);
+
+// Nfc CRUD
+rpc CreateNfc(Nfc) returns (Response);
+rpc GetNfc(Request) returns (Nfc);
+rpc GetAllNfcs(Request) returns (NfcList);
+rpc UpdateNfc(Nfc) returns (Response);
+rpc DeleteNfc(Request) returns (Response);
+
+// Fob CRUD
+rpc CreateFob(Fob) returns (Response);
+rpc GetFob(Request) returns (Fob);
+rpc GetAllFobs(Request) returns (FobList);
+rpc UpdateFob(Fob) returns (Response);
+rpc DeleteFob(Request) returns (Response);
 }
 
 
@@ -29,14 +68,77 @@ message Bus {
 	string longitude = 9;
 }
 
-message BusList{
+message BusList {
     repeated Bus buslist = 1;
 }
 
-message DatabaseChagedBus{
-    bool haschanbged = 1;
+message Response {
+    bool succeeded = 1;
 }
 
-message BusRequest{
+message Request {
 int32 id = 1;
+}
+
+message Stop {
+	int32 id = 1;
+	string name = 2;
+	string latitude = 3;
+	string longitude = 4;
+}
+
+message StopList	{
+	repeated Stop stops = 1;
+}
+
+message Route {
+	int32 id = 1;
+	string name = 2;
+}
+
+message RouteList	{
+	repeated Route Routes = 1;
+}
+
+message Passenger {
+	int32 id = 1;
+	string name = 2;
+}
+
+message PassengerList	{
+	repeated Passenger passengers = 1;
+}
+
+message Ticket {
+	int32 id = 1;
+	int32 bus_id = 2;
+	google.protobuf.Timestamp purchase_time = 3;
+	google.protobuf.Timestamp departure_time = 4;
+	int32 departure_stop_id = 5;
+	int32 destination_stop_id = 6;
+	float price = 7;
+}
+
+message TicketList	{
+	repeated Ticket tickets = 1;
+}
+
+message Nfc {
+	int32 id = 1;
+	string uuid = 2;
+	int32 passenger_id = 3;
+}
+
+message NfcList	{
+	repeated Nfc nfcs = 1;
+}
+
+message Fob {
+	int32 id = 1;
+	string mac_address = 2;
+	int32 passenger_id = 3;
+}
+
+message FobList	{
+	repeated Fob fobs = 1;
 }

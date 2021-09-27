@@ -1,42 +1,51 @@
 syntax = "proto3";
 //import "google/protobuf/empty.proto";
 option csharp_namespace = "BusGrpcEndpoint.Protos";
-import "google/protobuf/timestamp.proto";
+//import "google/protobuf/timestamp.proto";
 package BusGrpcEndpoint;
 
 service BusGrpcEndpoint {
-//Crud start
-rpc CreateBus(Bus) returns (DatabaseChagedBus);
-rpc GetBusInfo(BusRequest) returns (Bus);
-rpc UpdateBusInfo(Bus) returns (DatabaseChagedBus);
-rpc DeleteBus(Bus) returns (DatabaseChagedBus);
-//Crud End
-rpc GetAllBuss(BusRequest) returns(BusList);
-rpc UpdaeBusPoscition(Bus) returns (DatabaseChagedBus);
-rpc UpdatePassagseCount(Bus) returns (DatabaseChagedBus); // Increments the bus passagse count or decroments
+  rpc GetBus(GetBusRequest) returns (Bus);
+  rpc GetFob(GetFobRequest) returns (Fob);
+  rpc DeviceLeft(Fob) returns (Response);
 }
 
-
 message Bus {
-	int32 id = 1;
-	string name = 2;
-	string make = 3;
-	string driver = 4;
-	int32 route_id = 5;
-	int32 total_bus_capacity = 6;
-	int32 current_bus_occupation = 7;
-	string latitude = 8;
-	string longitude = 9;
+  int32 id = 1;
+  string name = 2;
+  string make = 3;
+  string driver = 4;
+  int32 route_id = 5;
+  int32 total_bus_capacity = 6;
+  int32 current_bus_occupation = 7;
+  string latitude = 8;
+  string longitude = 9;
+}
+
+message Fob {
+  string mac_address = 1;
+}
+
+message GetBusRequest {
+  int32 id = 1;
+}
+
+message GetFobRequest {
+  string nfc_id = 1;
 }
 
 message BusList{
-    repeated Bus buslist = 1;
+  repeated Bus bus_list = 1;
 }
 
-message DatabaseChagedBus{
-    bool haschanbged = 1;
+message DatabaseChangedBus{
+  bool has_changed = 1;
 }
 
 message BusRequest{
-int32 id = 1;
+  int32 id = 1;
+}
+
+message Response {
+  bool succeeded = 1;
 }
