@@ -1,22 +1,24 @@
-#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["MobilEndPointGrpcService.csproj", ""]
-RUN dotnet restore "./MobilEndPointGrpcService.csproj"
-COPY . .
-WORKDIR "/src/"
-RUN dotnet build "MobilEndPointGrpcService.csproj" -c Release -o /app/build
+COPY ./GrpcEndpoints/MobileGrpcEndpoint/MobileGrpcEndpoint.csproj ./GrpcEndpoints/MobileGrpcEndpoint/
+RUN dotnet restore ./GrpcEndpoints/MobileGrpcEndpoint/MobileGrpcEndpoint.csproj
+
+COPY ./Protos/MobileGrpcService.proto ./Protos/
+COPY ./Protos/TicketGrpcService.proto ./Protos/
+COPY ./Protos/RouteGrpcService.proto ./Protos/
+COPY ./Protos/MobileGrpcEndpoint.proto ./Protos/
+
+COPY ./GrpcEndpoints/MobileGrpcEndpoint/ ./GrpcEndpoints/MobileGrpcEndpoint/
+WORKDIR /src/
+RUN dotnet build ./GrpcEndpoints/MobileGrpcEndpoint/MobileGrpcEndpoint.csproj -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "MobilEndPointGrpcService.csproj" -c Release -o /app/publish
+RUN dotnet publish ./GrpcEndpoints/MobileGrpcEndpoint/MobileGrpcEndpoint.csproj -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "MobilEndPointGrpcService.dll"]
+ENTRYPOINT ["dotnet", "MobileGrpcEndpoint.dll"]

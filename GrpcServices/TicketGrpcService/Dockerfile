@@ -6,6 +6,7 @@ WORKDIR /src
 COPY ./GrpcServices/TicketGrpcService/TicketGrpcService.csproj ./GrpcServices/TicketGrpcService/
 RUN dotnet restore ./GrpcServices/TicketGrpcService/TicketGrpcService.csproj
 
+COPY ./Protos/DatabaseGrpcService.proto ./Protos/
 COPY ./Protos/TicketGrpcService.proto ./Protos/
 
 COPY ./GrpcServices/TicketGrpcService/ ./GrpcServices/TicketGrpcService/
