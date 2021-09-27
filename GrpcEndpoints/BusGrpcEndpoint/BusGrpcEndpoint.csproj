@@ -7,13 +7,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="Services\**" />
-	  <Content Remove="Services\**" />
-	  <EmbeddedResource Remove="Services\**" />
-	  <None Remove="Services\**" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="Grpc.AspNetCore" Version="2.34.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.13" />
 	</ItemGroup>
@@ -22,6 +15,10 @@
 		<Protobuf Include="..\..\Protos\BusGrpcService.proto" GrpcServices="Client" />
 		<Protobuf Include="..\..\Protos\TicketGrpcService.proto" GrpcServices="Client" />
 		<Protobuf Include="..\..\Protos\BusGrpcEndpoint.proto" GrpcServices="Server" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Include="Services\EtEllerAndetDetErLigeMegetHvadDuKalderDenDuKan.cs" />
 	</ItemGroup>
 
 </Project>
