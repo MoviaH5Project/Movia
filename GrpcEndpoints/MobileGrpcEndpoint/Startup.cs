@@ -32,8 +32,7 @@ namespace MobilEndPointGrpcService
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGrpcService<MobilGrpc>();
-                //endpoints.MapGrpcService<RouteGrpc>();
+                endpoints.MapGrpcService<MobilGrpc>().AllowAnonymous();
             });
         }
     }

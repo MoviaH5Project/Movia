@@ -31,7 +31,7 @@ namespace AngularGrpcServiceEndPoint
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGrpcService<Services.AngularGrpcServiceEndpoint>();                
+                endpoints.MapGrpcService<Services.AngularGrpcServiceEndpoint>().AllowAnonymous();                
             });
         }
     }

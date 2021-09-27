@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace AngularGrpcServiceEndPoint
@@ -12,17 +15,49 @@ namespace AngularGrpcServiceEndPoint
     {
         public static void Main(string[] args)
         {
-            
-            CreateHostBuilder(args).Build().Run();
-        }
+			Log.Logger = new LoggerConfiguration()
+				.Enrich.FromLogContext()
+				.WriteTo.Console()
+				.CreateBootstrapLogger();
+
+			try
+			{
+				Log.Information("Service is starting up..");
+
+				CreateHostBuilder(args).Build().Run();
+
+				Log.Information("Service stopped cleanly");
+			}
+			catch (Exception ex)
+			{
+				Log.Fatal(ex, "An unhandled exception occurred during bootstrapping!");
+			}
+			finally
+			{
+				Log.CloseAndFlush();
+			}
+		}
 
         // Additional configuration is required to successfully run gRPC on macOS.
         // For instructions on how to configure Kestrel and gRPC clients on macOS, visit https://go.microsoft.com/fwlink/?linkid=2099682
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
-    }
+        public static IHostBuilder CreateHostBuilder(string[] args)
+		{
+			return Host.CreateDefaultBuilder(args)
+				.UseSerilog((context, services, configuration) => configuration
+					.WriteTo.Console()
+					.ReadFrom.Configuration(context.Configuration)
+					.ReadFrom.Services(services))
+				.ConfigureWebHostDefaults(webBuilder =>
+				{
+					webBuilder.UseStartup<Startup>()
+					.ConfigureKestrel(options =>
+					{
+						options.Listen(IPAddress.Any, 5100, listenOptions =>
+						{
+							listenOptions.Protocols = HttpProtocols.Http1AndHttp2;
+						});
+					});
+				});
+		}
+	}
 }

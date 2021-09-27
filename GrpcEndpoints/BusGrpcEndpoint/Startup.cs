@@ -33,7 +33,7 @@ namespace RouteEndpointGrpcService
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGrpcService<BusScnnerService>();
+                endpoints.MapGrpcService<BusScnnerService>().AllowAnonymous();
             });
         }
     }
