@@ -5,51 +5,47 @@ option csharp_namespace = "BusGrpcEndpoint.Protos";
 package BusGrpcEndpoint;
 
 service BusGrpcEndpoint {
-
-rpc GetBusInfo(Request) returns (Bus);
-rpc UpdateBusInfo(Bus) returns (Response);
-
-rpc GetNfc(Request) returns (Nfc);
-rpc GetFob(Request) returns (Fob);
-
-rpc ValidateTicket(BusTicket) returns(Response);
-
-}
-
-message BusTicket{
-Fob fob = 1;
-Nfc nfc = 2;
-}
-
-message Request {
-	int32 id = 1;
-	}
-
-message Response {
-	bool succeeded = 1;
+  rpc GetBus(GetBusRequest) returns (Bus);
+  rpc GetFob(GetFobRequest) returns (Fob);
+  rpc DeviceLeft(Fob) returns (Response);
 }
 
 message Bus {
-	int32 id = 1;
-	string name = 2;
-	string make = 3;
-	string driver = 4;
-	int32 route_id = 5;
-	int32 total_bus_capacity = 6;
-	int32 current_bus_occupation = 7;
-	string latitude = 8;
-	string longitude = 9;
+  int32 id = 1;
+  string name = 2;
+  string make = 3;
+  string driver = 4;
+  int32 route_id = 5;
+  int32 total_bus_capacity = 6;
+  int32 current_bus_occupation = 7;
+  string latitude = 8;
+  string longitude = 9;
 }
 
 message Fob {
-	int32 id = 1;
-	string mac_address = 2;
-	int32 passenger_id = 3;
+  string mac_address = 1;
 }
 
-message Nfc {
-	int32 id = 1;
-	string uuid = 2;
-	int32 passenger_id = 3;
+message GetBusRequest {
+  int32 id = 1;
 }
 
+message GetFobRequest {
+  string nfc_id = 1;
+}
+
+message BusList{
+  repeated Bus bus_list = 1;
+}
+
+message DatabaseChangedBus{
+  bool has_changed = 1;
+}
+
+message BusRequest{
+  int32 id = 1;
+}
+
+message Response {
+  bool succeeded = 1;
+}
