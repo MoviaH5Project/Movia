@@ -1,20 +1,19 @@
-#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["BusGrpcService/BusGrpcService.csproj", "BusGrpcService/"]
-RUN dotnet restore "BusGrpcService/BusGrpcService.csproj"
-COPY . .
-WORKDIR "/src/BusGrpcService"
-RUN dotnet build "BusGrpcService.csproj" -c Release -o /app/build
+COPY ./GrpcServices/BusGrpcService/BusGrpcService.csproj ./GrpcServices/BusGrpcService/
+RUN dotnet restore ./GrpcServices/BusGrpcService/BusGrpcService.csproj
+
+COPY ./Protos/BusGrpcService.proto ./Protos/
+
+COPY ./GrpcServices/BusGrpcService/ ./GrpcServices/BusGrpcService/
+WORKDIR /src/
+RUN dotnet build ./GrpcServices/BusGrpcService/BusGrpcService.csproj -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "BusGrpcService.csproj" -c Release -o /app/publish
+RUN dotnet publish ./GrpcServices/BusGrpcService/BusGrpcService.csproj -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
