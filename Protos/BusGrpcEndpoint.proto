@@ -1,13 +1,13 @@
 syntax = "proto3";
 //import "google/protobuf/empty.proto";
 option csharp_namespace = "BusGrpcEndpoint.Protos";
-import "google/protobuf/timestamp.proto";
+//import "google/protobuf/timestamp.proto";
 package BusGrpcEndpoint;
 
 service BusGrpcEndpoint {
 
 rpc GetBusInfo(Request) returns (Bus);
-rpc UpdateBusInfo(Bus) returns (Respones);
+rpc UpdateBusInfo(Bus) returns (Response);
 
 rpc GetNfc(Request) returns (Nfc);
 rpc GetFob(Request) returns (Fob);

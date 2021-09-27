@@ -20,8 +20,7 @@ namespace MobilEndPointGrpcService.Services
     /// This services is is the endpoint for the mobil application.
     /// </summary>
     public class MobilGrpc : MobileGrpcEndpoint.Protos.MobileGrpcEndpoint.MobileGrpcEndpointBase
-    {
-        
+    {   
         #region Props
         
         private readonly ILogger<MobilGrpc> _logger;

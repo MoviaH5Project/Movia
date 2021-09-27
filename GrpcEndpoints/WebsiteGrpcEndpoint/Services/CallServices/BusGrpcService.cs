@@ -18,13 +18,13 @@ namespace AngularGrpcServiceEndPoint.Services
         private readonly ILogger<BusGrpcService> _logger;
         public BusGrpcService(ILogger<BusGrpcService> logger)
         {
+            _logger.LogDebug("Channel BusGrpc Service have been created");
             if (channel == null)
             {
                 channel = new grpcservice.BusGrpcService.BusGrpcServiceClient(GrpcChannel.ForAddress("http://193.106.164.115:5100", new GrpcChannelOptions
                 {
                     MaxReceiveMessageSize = 0,
                     MaxSendMessageSize = 0,
-                    LoggerFactory = (ILoggerFactory)_logger,
                     Credentials = ChannelCredentials.Insecure
                 }));
             }
