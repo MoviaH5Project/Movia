@@ -872,6 +872,31 @@ namespace DatabaseGrpcService.ApplicationServices
 			return new Response { Succeeded = false };
 		}
 
+		public override async Task<Fob> GetFobByNfc(Nfc request, ServerCallContext context)
+		{
+			if (request is null)
+			{
+				throw new ArgumentNullException(nameof(request));
+			}
+
+			if (context is null)
+			{
+				throw new ArgumentNullException(nameof(context));
+			}
+
+			try
+			{
+				NfcDao nfc = await _nfcRepository.GetNfcByUuid(request.Uuid);
+				return _mapperService.MapFromDaoToProto<FobDao, Fob>(await _fobRepository.GetFobByNfc(nfc));
+			}
+			catch (Exception ex)
+			{
+				_logger.LogError(ex.Message);
+			}
+
+			return new Fob();
+		}
+
 		#endregion
 
 		#region Nfc

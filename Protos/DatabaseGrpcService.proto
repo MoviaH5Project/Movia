@@ -55,6 +55,7 @@ rpc GetFob(Request) returns (Fob);
 rpc GetAllFobs(Request) returns (FobList);
 rpc UpdateFob(Fob) returns (Response);
 rpc DeleteFob(Request) returns (Response);
+rpc GetFobByNfc(Nfc) returns (Fob);
 }
 
 message Request {
