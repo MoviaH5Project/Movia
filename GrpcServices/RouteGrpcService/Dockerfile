@@ -6,6 +6,7 @@ WORKDIR /src
 COPY ./GrpcServices/RouteGrpcService/RouteGrpcService.csproj ./GrpcServices/RouteGrpcService/
 RUN dotnet restore ./GrpcServices/RouteGrpcService/RouteGrpcService.csproj
 
+COPY ./Protos/DatabaseGrpcService.proto ./Protos/
 COPY ./Protos/RouteGrpcService.proto ./Protos/
 
 COPY ./GrpcServices/RouteGrpcService/ ./GrpcServices/RouteGrpcService/

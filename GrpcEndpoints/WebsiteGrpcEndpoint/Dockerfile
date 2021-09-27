@@ -1,22 +1,23 @@
-#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["AngularGrpcServiceEndPoint.csproj", ""]
-RUN dotnet restore "./AngularGrpcServiceEndPoint.csproj"
-COPY . .
-WORKDIR "/src/"
-RUN dotnet build "AngularGrpcServiceEndPoint.csproj" -c Release -o /app/build
+COPY ./GrpcEndpoints/WebsiteGrpcEndpoint/WebsiteGrpcEndpoint.csproj ./GrpcEndpoints/WebsiteGrpcEndpoint/
+RUN dotnet restore ./GrpcEndpoints/WebsiteGrpcEndpoint/WebsiteGrpcEndpoint.csproj
+
+COPY ./Protos/BusGrpcService.proto ./Protos/
+COPY ./Protos/RouteGrpcService.proto ./Protos/
+COPY ./Protos/WebsiteGrpcEndpoint.proto ./Protos/
+
+COPY ./GrpcEndpoints/WebsiteGrpcEndpoint/ ./GrpcEndpoints/WebsiteGrpcEndpoint/
+WORKDIR /src/
+RUN dotnet build ./GrpcEndpoints/WebsiteGrpcEndpoint/WebsiteGrpcEndpoint.csproj -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "AngularGrpcServiceEndPoint.csproj" -c Release -o /app/publish
+RUN dotnet publish ./GrpcEndpoints/WebsiteGrpcEndpoint/WebsiteGrpcEndpoint.csproj -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "AngularGrpcServiceEndPoint.dll"]
+ENTRYPOINT ["dotnet", "WebsiteGrpcEndpoint.dll"]
