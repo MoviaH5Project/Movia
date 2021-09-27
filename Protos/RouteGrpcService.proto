@@ -6,27 +6,45 @@ package RouteGrpcService;
 import "google/protobuf/timestamp.proto";
 
 service RouteGrpcService {
+// Stop CRUD
+rpc CreateStop(Stop) returns (Response);
+rpc GetStop(Request) returns (Stop);
+rpc GetAllStops(Request) returns (StopList);
+rpc UpdateStop(Stop) returns (Response);
+rpc DeleteStop(Request) returns (Response);
 
-  rpc GetRoutes (RoutesRequest) returns (Routes);
-  rpc CreateRoutes (RoutesRequest) returns(DatabaseChagedRoute);
-  rpc UpdateRoute (RoutesRequest) returns(DatabaseChagedRoute);
-  rpc RemoveRoute(RoutesRequest) returns(DatabaseChagedRoute);
+// Route CRUD
+rpc CreateRoute(Route) returns (Response);
+rpc GetRoute(Request) returns (Route);
+rpc GetAllRoutes(Request) returns (RouteList);
+rpc UpdateRoute(Route) returns (Response);
+rpc DeleteRoute(Request) returns (Response);
 }
 
-message RoutesRequest {
-  string name = 1;
-  string bus = 2;
-}
-message Route{
-	string name = 1;
-	string dateOfPurscsss = 2;
-	int32 price = 3;
+message Request {
+	int32 id = 1;
 }
 
-message Routes{
-	 repeated Route listTickets = 1;
+message Response {
+	bool succeeded = 1;
 }
 
-message DatabaseChagedRoute{
-    bool haschanbged = 1;
+message Stop {
+	int32 id = 1;
+	string name = 2;
+	string latitude = 3;
+	string longitude = 4;
+}
+
+message StopList	{
+	repeated Stop stops = 1;
+}
+
+message Route {
+	int32 id = 1;
+	string name = 2;
+}
+
+message RouteList	{
+	repeated Route Routes = 1;
 }

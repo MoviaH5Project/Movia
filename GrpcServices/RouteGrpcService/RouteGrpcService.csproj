@@ -16,11 +16,18 @@
 	<ItemGroup>
 		<PackageReference Include="Grpc.AspNetCore" Version="2.34.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.13" />
+		<PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Protobuf Include="..\..\Protos\DatabaseGrpcService.proto" GrpcServices="Client" />
 		<Protobuf Include="..\..\Protos\RouteGrpcService.proto" GrpcServices="Server" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Helpers\" />
+	  <Folder Include="DomainServices\" />
+	  <Folder Include="InfrastructureServices\" />
 	</ItemGroup>
 
 </Project>
