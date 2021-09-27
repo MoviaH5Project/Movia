@@ -1,21 +1,26 @@
 syntax = "proto3";
-//import "google/protobuf/empty.proto";
+
 option csharp_namespace = "BusGrpcService.Protos";
-import "google/protobuf/timestamp.proto";
+
 package BusGrpcService;
 
+import "google/protobuf/timestamp.proto";
+
 service BusGrpcService {
-//Crud start
-rpc CreateBus(Bus) returns (DatabaseChagedBus);
-rpc GetBusInfo(BusRequest) returns (Bus);
-rpc UpdateBusInfo(Bus) returns (DatabaseChagedBus);
-rpc DeleteBus(Bus) returns (DatabaseChagedBus);
-//Crud End
-rpc GetAllBuss(BusRequest) returns(BusList);
-rpc UpdaeBusPoscition(Bus) returns (DatabaseChagedBus);
-rpc UpdatePassagseCount(Bus) returns (DatabaseChagedBus); // Increments the bus passagse count or decroments
+rpc CreateBus(Bus) returns (Response);
+rpc GetBus(Request) returns (Bus);
+rpc GetAllBusses(Request) returns (BusList);
+rpc UpdateBus(Bus) returns (Response);
+rpc DeleteBus(Request) returns (Response);
 }
 
+message Request {
+	int32 id = 1;
+}
+
+message Response {
+	bool succeeded = 1;
+}
 
 message Bus {
 	int32 id = 1;
@@ -29,14 +34,6 @@ message Bus {
 	string longitude = 9;
 }
 
-message BusList{
-    repeated Bus buslist = 1;
-}
-
-message DatabaseChagedBus{
-    bool haschanbged = 1;
-}
-
-message BusRequest{
-int32 id = 1;
+message BusList	{
+	repeated Bus Busses = 1;
 }

@@ -1,36 +1,88 @@
 syntax = "proto3";
+
 option csharp_namespace = "TicketGrpcService.Protos";
+
 package TicketGrpcService;
+
 import "google/protobuf/timestamp.proto";
+
 service TicketGrpcService {
- //Crud start
-rpc CreateTicket(TicketRequest) returns (DatabaseChagedTicket);
-rpc Getticket(TicketRequest) returns (Ticket);
-rpc UpdateTicket(TicketRequest) returns (DatabaseChagedTicket);
-rpc RemoveTicket(TicketRequest) returns (DatabaseChagedTicket);
-//Crud End
-rpc GetAllTickets(TicketRequest) returns(Tickets);
+ // Passenger CRUD
+rpc CreatePassenger(Passenger) returns (Response);
+rpc GetPassenger(Request) returns (Passenger);
+rpc GetAllPassengers(Request) returns (PassengerList);
+rpc UpdatePassenger(Passenger) returns (Response);
+rpc DeletePassenger(Request) returns (Response);
+
+// Ticket CRUD
+rpc CreateTicket(Ticket) returns (Response);
+rpc GetTicket(Request) returns (Ticket);
+rpc GetAllTickets(Request) returns (TicketList);
+rpc UpdateTicket(Ticket) returns (Response);
+rpc DeleteTicket(Request) returns (Response);
+
+// Nfc CRUD
+rpc CreateNfc(Nfc) returns (Response);
+rpc GetNfc(Request) returns (Nfc);
+rpc GetAllNfcs(Request) returns (NfcList);
+rpc UpdateNfc(Nfc) returns (Response);
+rpc DeleteNfc(Request) returns (Response);
+
+// Fob CRUD
+rpc CreateFob(Fob) returns (Response);
+rpc GetFob(Request) returns (Fob);
+rpc GetAllFobs(Request) returns (FobList);
+rpc UpdateFob(Fob) returns (Response);
+rpc DeleteFob(Request) returns (Response);
 }
-message TicketRequest {
-  string name = 1;
-  string route = 2;
-  Ticket Ticket = 3;
+
+message Request {
+	int32 id = 1;
 }
-message Tickets{
-     repeated Ticket listTickets = 1;
+
+message Response {
+	bool succeeded = 1;
 }
-message ResultRepley {
-  string msg = 1;
+
+message Passenger {
+	int32 id = 1;
+	string name = 2;
 }
+
+message PassengerList	{
+	repeated Passenger passengers = 1;
+}
+
 message Ticket {
-    int32 uuid = 1;
-    int32 busid = 2;
-    string purchasetime = 3;   
-    string departureTimeStamp = 4;
-    string departure = 5;
-    string distenation = 6;
-    float price = 7;
+	int32 id = 1;
+	int32 bus_id = 2;
+	google.protobuf.Timestamp purchase_time = 3;
+	google.protobuf.Timestamp departure_time = 4;
+	int32 departure_stop_id = 5;
+	int32 destination_stop_id = 6;
+	float price = 7;
 }
-message DatabaseChagedTicket{
-    bool haschanbged = 1;
+
+message TicketList	{
+	repeated Ticket tickets = 1;
+}
+
+message Nfc {
+	int32 id = 1;
+	string uuid = 2;
+	int32 passenger_id = 3;
+}
+
+message NfcList	{
+	repeated Nfc nfcs = 1;
+}
+
+message Fob {
+	int32 id = 1;
+	string mac_address = 2;
+	int32 passenger_id = 3;
+}
+
+message FobList	{
+	repeated Fob fobs = 1;
 }
