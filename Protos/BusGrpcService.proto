@@ -1,11 +1,12 @@
 syntax = "proto3";
-//import "google/protobuf/empty.proto";
-//import "google/protobuf/timestamp.proto";
+
 option csharp_namespace = "BusGrpcService.Protos";
+
 package BusGrpcService;
 
-service BusGrpcService {
+import "google/protobuf/timestamp.proto";
 
+service BusGrpcService {
 rpc CreateBus(Bus) returns (Response);
 rpc GetBus(Request) returns (Bus);
 rpc GetAllBusses(Request) returns (BusList);
@@ -13,6 +14,13 @@ rpc UpdateBus(Bus) returns (Response);
 rpc DeleteBus(Request) returns (Response);
 }
 
+message Request {
+	int32 id = 1;
+}
+
+message Response {
+	bool succeeded = 1;
+}
 
 message Bus {
 	int32 id = 1;
@@ -26,14 +34,6 @@ message Bus {
 	string longitude = 9;
 }
 
-message BusList{
-    repeated Bus buslist = 1;
-}
-
-message Response {
-	bool succeeded = 1;
-}
-
-message Request{
-	int32 id = 1;
+message BusList	{
+	repeated Bus Busses = 1;
 }
