@@ -30,7 +30,7 @@ namespace WebsiteGrpcEndpoint.InfrastructureServices
 
 		public async Task<BusService.Response> CreateBusAsync(BusService.Bus request)
 		{
-            Console.WriteLine("CreateBus have been run");
+           
 			if (request is null)
 			{
 				_logHelper.LogNullException(nameof(request));
