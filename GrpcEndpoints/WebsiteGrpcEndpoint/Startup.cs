@@ -39,6 +39,17 @@ namespace WebsiteGrpcEndpoint
 			services.AddTransient<IBusGrpcService, InfrastructureServices.BusGrpcService>();
 			services.AddTransient<IRouteGrpcService, InfrastructureServices.RouteGrpcService>();
 
+			services.AddCors(opt =>
+			{
+				opt.AddPolicy("MyPolicy", builder => 
+				{
+					builder.AllowAnyOrigin();
+					builder.AllowAnyMethod();
+					builder.AllowAnyHeader();
+					builder.WithExposedHeaders("Grpc-Status", "Grpc-Message");
+				});
+			});
+
 			services.AddGrpc();
 		}
 
@@ -51,10 +62,11 @@ namespace WebsiteGrpcEndpoint
 			}
 
 			app.UseRouting();
+			app.UseCors();
 
 			app.UseEndpoints(endpoints =>
 			{
-				endpoints.MapGrpcService<ApplicationServices.WebsiteGrpcEndpoint>().AllowAnonymous();
+				endpoints.MapGrpcService<ApplicationServices.WebsiteGrpcEndpoint>().AllowAnonymous().RequireCors("MyPolicy").EnableGrpcWeb();
 			});
 		}
 	}
