@@ -43,6 +43,7 @@ namespace AngularGrpcServiceEndPoint.Services
         #region Bus Crud
         public override Task<website.Response> CreateBus(website.Bus request, ServerCallContext context)
         {
+            logger.LogDebug($"{context.Host} called CreateBus\nBus name :{request.Name} ");
             return Task.FromResult(website.Response.Parser.ParseFrom(dataservice.CreateBus(BusData.Bus.Parser.ParseFrom(request.ToByteArray())).ToByteArray()));
         }
         public override Task<website.Response> DeleteBus(website.Request request, ServerCallContext context)

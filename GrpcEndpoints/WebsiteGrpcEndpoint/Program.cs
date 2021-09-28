@@ -54,7 +54,9 @@ namespace AngularGrpcServiceEndPoint
 					{
 						options.Listen(IPAddress.Any, 5100, listenOptions =>
 						{
-							listenOptions.Protocols = HttpProtocols.Http1AndHttp2;
+							
+							listenOptions.Protocols = HttpProtocols.Http1;
+							
 						});
 					});
 				});

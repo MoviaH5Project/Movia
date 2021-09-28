@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -17,21 +16,33 @@ namespace AngularGrpcServiceEndPoint
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddGrpc();
+            services.AddCors(o =>
+            {
+                o.AddPolicy("MyPolicy", builder =>
+                {
+                    builder.AllowAnyOrigin();
+                    builder.AllowAnyMethod();
+                    builder.AllowAnyHeader();
+                    builder.WithExposedHeaders("Grpc-Status", "Grpc-Message");
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseGrpcWeb();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
             app.UseRouting();
+            app.UseCors();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGrpcService<Services.AngularGrpcServiceEndpoint>().AllowAnonymous();                
+                endpoints.MapGrpcService<Services.AngularGrpcServiceEndpoint>().AllowAnonymous().RequireCors("MyPolicy").EnableGrpcWeb();         
             });
         }
     }
