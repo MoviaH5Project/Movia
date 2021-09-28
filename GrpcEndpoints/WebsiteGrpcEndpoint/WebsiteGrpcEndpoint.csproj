@@ -21,4 +21,8 @@
 		<Protobuf Include="..\..\Protos\WebsiteGrpcEndpoint.proto" GrpcServices="Server" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Helpers\" />
+	</ItemGroup>
+
 </Project>
