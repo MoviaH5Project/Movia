@@ -65,11 +65,13 @@ namespace WebsiteGrpcEndpoint
 			}
 
 			app.UseRouting();
+
+			app.UseGrpcWeb();
 			app.UseCors();
 
 			app.UseEndpoints(endpoints =>
 			{
-				endpoints.MapGrpcService<ApplicationServices.WebsiteGrpcEndpoint>().AllowAnonymous().RequireCors("MyPolicy").EnableGrpcWeb();
+				endpoints.MapGrpcService<ApplicationServices.WebsiteGrpcEndpoint>().AllowAnonymous().EnableGrpcWeb().RequireCors("MyPolicy");
 			});
 		}
 	}
