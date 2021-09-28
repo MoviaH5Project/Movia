@@ -18,4 +18,8 @@
 		<Protobuf Include="..\..\Protos\BusGrpcEndpoint.proto" GrpcServices="Server" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Helpers\" />
+	</ItemGroup>
+
 </Project>

@@ -13,6 +13,8 @@ rpc GetPassenger(Request) returns (Passenger);
 rpc GetAllPassengers(Request) returns (PassengerList);
 rpc UpdatePassenger(Passenger) returns (Response);
 rpc DeletePassenger(Request) returns (Response);
+rpc CheckIn(Nfc) returns (Response);
+rpc CheckOut(Fob) returns (Response);
 
 // Ticket CRUD
 rpc CreateTicket(Ticket) returns (Response);
@@ -34,6 +36,7 @@ rpc GetFob(Request) returns (Fob);
 rpc GetAllFobs(Request) returns (FobList);
 rpc UpdateFob(Fob) returns (Response);
 rpc DeleteFob(Request) returns (Response);
+rpc GetFobByNfc(Nfc) returns (Fob);
 }
 
 message Request {
