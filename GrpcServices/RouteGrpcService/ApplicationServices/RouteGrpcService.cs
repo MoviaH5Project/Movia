@@ -16,7 +16,7 @@ namespace RouteGrpcService.ApplicationServices
 		private readonly IDatabaseGrpcService _databaseGrpcService;
 		private readonly ILogHelper<RouteGrpcService> _logHelper;
 
-		internal RouteGrpcService(IDatabaseGrpcService databaseGrpcService, ILogHelper<RouteGrpcService> logHelper)
+		public RouteGrpcService(IDatabaseGrpcService databaseGrpcService, ILogHelper<RouteGrpcService> logHelper)
 		{
 			_databaseGrpcService = databaseGrpcService ?? throw new ArgumentNullException(nameof(databaseGrpcService));
 			_logHelper = logHelper ?? throw new ArgumentNullException(nameof(logHelper));

@@ -1,4 +1,5 @@
-﻿using BusGrpcEndpoint.InfrastructureServices;
+﻿using BusGrpcEndpoint.Helpers;
+using BusGrpcEndpoint.InfrastructureServices;
 using Grpc.Net.Client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -16,7 +17,7 @@ namespace BusGrpcEndpoint
 		// For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddSingleton(services =>
+			services.AddSingleton<BusService.BusGrpcService.BusGrpcServiceClient>(services =>
 			{
 				return new BusService.BusGrpcService.BusGrpcServiceClient(
 					GrpcChannel.ForAddress(Environment.GetEnvironmentVariable("BUS_SERVICE_URL"),
@@ -26,7 +27,7 @@ namespace BusGrpcEndpoint
 					}));
 			});
 
-			services.AddSingleton(services =>
+			services.AddSingleton<TicketService.TicketGrpcService.TicketGrpcServiceClient>(services =>
 			{
 				return new TicketService.TicketGrpcService.TicketGrpcServiceClient(
 					GrpcChannel.ForAddress(Environment.GetEnvironmentVariable("TICKET_SERVICE_URL"),
@@ -35,6 +36,8 @@ namespace BusGrpcEndpoint
 						Credentials = Grpc.Core.ChannelCredentials.Insecure
 					}));
 			});
+
+			services.AddTransient(typeof(ILogHelper<>), typeof(LogHelper<>));
 
 			services.AddTransient<IBusGrpcService, InfrastructureServices.BusGrpcService>();
 			services.AddTransient<ITicketGrpcService, InfrastructureServices.TicketGrpcService>();

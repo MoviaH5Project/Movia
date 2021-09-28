@@ -50,7 +50,7 @@ namespace BusGrpcEndpoint
 					{
 						options.Listen(IPAddress.Any, 5300, listenOptions =>
 						{
-							listenOptions.Protocols = HttpProtocols.Http1AndHttp2;
+							listenOptions.Protocols = HttpProtocols.Http2;
 						});
 					});
 				});

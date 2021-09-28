@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using WebsiteGrpcEndpoint.Helpers;
 using WebsiteGrpcEndpoint.InfrastructureServices;
 using BusService = BusGrpcService.Protos;
 using RouteService = RouteGrpcService.Protos;
@@ -16,7 +17,7 @@ namespace WebsiteGrpcEndpoint
 		// For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddSingleton(services =>
+			services.AddSingleton<BusService.BusGrpcService.BusGrpcServiceClient>(services =>
 			{
 				return new BusService.BusGrpcService.BusGrpcServiceClient(
 					GrpcChannel.ForAddress(Environment.GetEnvironmentVariable("BUS_SERVICE_URL"),
@@ -26,7 +27,7 @@ namespace WebsiteGrpcEndpoint
 					}));
 			});
 
-			services.AddSingleton(services =>
+			services.AddSingleton<RouteService.RouteGrpcService.RouteGrpcServiceClient>(services =>
 			{
 				return new RouteService.RouteGrpcService.RouteGrpcServiceClient(
 					GrpcChannel.ForAddress(Environment.GetEnvironmentVariable("ROUTE_SERVICE_URL"),
@@ -35,6 +36,8 @@ namespace WebsiteGrpcEndpoint
 						Credentials = Grpc.Core.ChannelCredentials.Insecure
 					}));
 			});
+
+			services.AddTransient(typeof(ILogHelper<>), typeof(LogHelper<>));
 
 			services.AddTransient<IBusGrpcService, InfrastructureServices.BusGrpcService>();
 			services.AddTransient<IRouteGrpcService, InfrastructureServices.RouteGrpcService>();
