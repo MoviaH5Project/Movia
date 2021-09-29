@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS ticket (
     departuretime TIMESTAMP NOT NULL,
     departurestopid INTEGER NOT NULL,
     destinationstopid INTEGER NOT NULL,
-    checkedout BOOLEAN NOT NULL;
+    checkedout BOOLEAN NOT NULL,
     price REAL NOT NULL,
     CONSTRAINT fk_ticket_bus
         FOREIGN KEY(busid)
