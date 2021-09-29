@@ -15,5 +15,6 @@ namespace DatabaseGrpcService.Models
 		public int departurestopid { get; set; }
 		public int destinationstopid { get; set; }
 		public float price { get; set; }
+		public bool checkedout { get; set; }
 	}
 }

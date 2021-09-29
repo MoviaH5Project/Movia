@@ -64,6 +64,8 @@ message Ticket {
 	int32 departure_stop_id = 5;
 	int32 destination_stop_id = 6;
 	float price = 7;
+	int32 passenger_id = 8;
+	bool checked_out = 9;
 }
 
 message TicketList	{
