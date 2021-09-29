@@ -24,7 +24,6 @@ namespace DatabaseGrpcService.ApplicationServices
 		private readonly INfcRepository _nfcRepository;
 		private readonly ILogger<GrpcService> _logger;
 
-
 		#endregion
 
 		#region Constructor
@@ -50,7 +49,8 @@ namespace DatabaseGrpcService.ApplicationServices
 			_nfcRepository = nfcRepository ?? throw new ArgumentNullException(nameof(nfcRepository));
 			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
 		}
-#endregion
+
+		#endregion
 
 		#region Bus
 
@@ -872,7 +872,7 @@ namespace DatabaseGrpcService.ApplicationServices
 			return new Response { Succeeded = false };
 		}
 
-		public override async Task<Fob> GetFobByNfc(Nfc request, ServerCallContext context)
+		public override async Task<Fob> GetFobByPassengerId(Request request, ServerCallContext context)
 		{
 			if (request is null)
 			{
@@ -886,15 +886,15 @@ namespace DatabaseGrpcService.ApplicationServices
 
 			try
 			{
-				NfcDao nfc = await _nfcRepository.GetNfcByUuid(request.Uuid);
-				return _mapperService.MapFromDaoToProto<FobDao, Fob>(await _fobRepository.GetFobByNfc(nfc));
+				FobDao fob = await _fobRepository.GetFobByPassengerId(request.Id);
+				return _mapperService.MapFromDaoToProto<FobDao, Fob>(fob);
 			}
 			catch (Exception ex)
 			{
 				_logger.LogError(ex.Message);
 			}
 
-			return new Fob();
+			return _mapperService.MapFromDaoToProto<FobDao, Fob>(new FobDao());
 		}
 
 		#endregion
@@ -1032,6 +1032,31 @@ namespace DatabaseGrpcService.ApplicationServices
 			}
 
 			return new Response { Succeeded = false };
+		}
+
+		public override async Task<Nfc> GetNfcByPassengerId(Request request, ServerCallContext context)
+		{
+			if (request is null)
+			{
+				throw new ArgumentNullException(nameof(request));
+			}
+
+			if (context is null)
+			{
+				throw new ArgumentNullException(nameof(context));
+			}
+
+			try
+			{
+				NfcDao fob = await _nfcRepository.GetNfcByPassengerId(request.Id);
+				return _mapperService.MapFromDaoToProto<NfcDao, Nfc>(fob);
+			}
+			catch (Exception ex)
+			{
+				_logger.LogError(ex.Message);
+			}
+
+			return _mapperService.MapFromDaoToProto<NfcDao, Nfc>(new NfcDao());
 		}
 
 		#endregion

@@ -48,6 +48,7 @@ rpc GetNfc(Request) returns (Nfc);
 rpc GetAllNfcs(Request) returns (NfcList);
 rpc UpdateNfc(Nfc) returns (Response);
 rpc DeleteNfc(Request) returns (Response);
+rpc GetNfcByPassengerId(Request) returns (Nfc);
 
 // Fob CRUD
 rpc CreateFob(Fob) returns (Response);
@@ -55,7 +56,7 @@ rpc GetFob(Request) returns (Fob);
 rpc GetAllFobs(Request) returns (FobList);
 rpc UpdateFob(Fob) returns (Response);
 rpc DeleteFob(Request) returns (Response);
-rpc GetFobByNfc(Nfc) returns (Fob);
+rpc GetFobByPassengerId(Request) returns (Fob);
 }
 
 message Request {
@@ -119,7 +120,8 @@ message Ticket {
 	int32 departure_stop_id = 5;
 	int32 destination_stop_id = 6;
 	float price = 7;
-	string passenger_id = 8;
+	int32 passenger_id = 8;
+	bool checked_out = 9;
 }
 
 message TicketList	{

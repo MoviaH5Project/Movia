@@ -1,6 +1,7 @@
 ﻿using Google.Protobuf;
 using Grpc.Core;
 using System;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using TicketGrpcService.Helpers;
@@ -282,6 +283,80 @@ namespace TicketGrpcService.ApplicationServices
 			}
 		}
 
+		public override async Task<Protos.Response> CheckIn(Protos.Nfc request, ServerCallContext context)
+		{
+			if (request is null)
+			{
+				_logHelper.LogNullException(nameof(request));
+				throw new ArgumentNullException(nameof(request));
+			}
+
+			if (context is null)
+			{
+				_logHelper.LogNullException(nameof(context));
+				throw new ArgumentNullException(nameof(context));
+			}
+
+			try
+			{
+				_logHelper.LogInvokingGrpcMethod(MethodBase.GetCurrentMethod().Name, _serviceContainerName, request);
+
+				Database.NfcList nfcList = await _databaseGrpcService.GetAllNfcsAsync(new Database.Request { Id = 1 });
+
+				int passengerId = nfcList.Nfcs.Where(n => n.Uuid == request.Uuid).FirstOrDefault().PassengerId;
+
+				Database.TicketList ticketList = await _databaseGrpcService.GetAllTicketsAsync(new Database.Request { Id = 1 });
+
+				Database.Ticket ticket = ticketList.Tickets.Where(t => t.PassengerId == passengerId).FirstOrDefault();
+
+				ticket.DepartureTime = Google.Protobuf.WellKnownTypes.Timestamp.FromDateTime(DateTime.UtcNow);
+
+				return Protos.Response.Parser.ParseFrom((await _databaseGrpcService.UpdateTicketAsync(ticket)).ToByteArray());
+			}
+			catch (Exception ex)
+			{
+				_logHelper.LogErrorInvokingGrpcMethod(ex, MethodBase.GetCurrentMethod().Name, _serviceContainerName, request);
+				throw;
+			}
+		}
+
+		public override async Task<Protos.Response> CheckOut(Protos.Fob request, ServerCallContext context)
+		{
+			if (request is null)
+			{
+				_logHelper.LogNullException(nameof(request));
+				throw new ArgumentNullException(nameof(request));
+			}
+
+			if (context is null)
+			{
+				_logHelper.LogNullException(nameof(context));
+				throw new ArgumentNullException(nameof(context));
+			}
+
+			try
+			{
+				_logHelper.LogInvokingGrpcMethod(MethodBase.GetCurrentMethod().Name, _serviceContainerName, request);
+
+				Database.FobList fobList = await _databaseGrpcService.GetAllFobsAsync(new Database.Request { Id = 1 });
+
+				int passengerId = fobList.Fobs.Where(n => n.MacAddress == request.MacAddress).FirstOrDefault().PassengerId;
+
+				Database.TicketList ticketList = await _databaseGrpcService.GetAllTicketsAsync(new Database.Request { Id = 1 });
+
+				Database.Ticket ticket = ticketList.Tickets.Where(t => t.PassengerId == passengerId).FirstOrDefault();
+
+				ticket.CheckedOut = true;
+
+				return Protos.Response.Parser.ParseFrom((await _databaseGrpcService.UpdateTicketAsync(ticket)).ToByteArray());
+			}
+			catch (Exception ex)
+			{
+				_logHelper.LogErrorInvokingGrpcMethod(ex, MethodBase.GetCurrentMethod().Name, _serviceContainerName, request);
+				throw;
+			}
+		}
+
 		public override async Task<Protos.Response> CreateFob(Protos.Fob request, ServerCallContext context)
 		{
 			if (request is null)
@@ -404,6 +479,37 @@ namespace TicketGrpcService.ApplicationServices
 			{
 				_logHelper.LogInvokingGrpcMethod(MethodBase.GetCurrentMethod().Name, _serviceContainerName, request);
 				return Protos.Response.Parser.ParseFrom((await _databaseGrpcService.DeleteFobAsync(Database.Request.Parser.ParseFrom(request.ToByteArray()))).ToByteArray());
+			}
+			catch (Exception ex)
+			{
+				_logHelper.LogErrorInvokingGrpcMethod(ex, MethodBase.GetCurrentMethod().Name, _serviceContainerName, request);
+				throw;
+			}
+		}
+
+		public override async Task<Protos.Fob> GetFobByNfc(Protos.Nfc request, ServerCallContext context)
+		{
+			if (request is null)
+			{
+				_logHelper.LogNullException(nameof(request));
+				throw new ArgumentNullException(nameof(request));
+			}
+
+			if (context is null)
+			{
+				_logHelper.LogNullException(nameof(context));
+				throw new ArgumentNullException(nameof(context));
+			}
+
+			try
+			{
+				_logHelper.LogInvokingGrpcMethod(MethodBase.GetCurrentMethod().Name, _serviceContainerName, request);
+
+				Database.NfcList nfcList = await _databaseGrpcService.GetAllNfcsAsync(new Database.Request { Id = 1 });
+
+				Database.Nfc nfc = nfcList.Nfcs.Where(n => n.Uuid == request.Uuid).FirstOrDefault();
+
+				return Protos.Fob.Parser.ParseFrom((await _databaseGrpcService.GetFobByPassengerIdAsync(new Database.Request { Id = nfc.PassengerId })).ToByteArray());
 			}
 			catch (Exception ex)
 			{

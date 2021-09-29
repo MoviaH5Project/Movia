@@ -9,7 +9,7 @@ namespace DatabaseGrpcService.InfrastructureServices.Repository
 {
 	internal interface INfcRepository : IBaseRepository<NfcDao>
 	{
-		Task<NfcDao> GetNfcByUuid(string uuid);
+		Task<NfcDao> GetNfcByPassengerId(int passengerId);
 	}
 
 	public class NfcRepository : BaseRepository<NfcDao>, INfcRepository
@@ -23,17 +23,17 @@ namespace DatabaseGrpcService.InfrastructureServices.Repository
 			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
 		}
 
-		public async Task<NfcDao> GetNfcByUuid(string uuid)
+		public async Task<NfcDao> GetNfcByPassengerId(int passengerId)
 		{
-			_logger.LogInformation("Getting entity {uuid} of type {type}", uuid, typeof(NfcDao).Name);
+			_logger.LogInformation("Getting entity {entity} of type {type}", passengerId, typeof(NfcDao).Name);
 
 			try
 			{
-				 return await _dbConnection.QuerySingleAsync<NfcDao>("SELECT * FROM nfc WHERE uuid = @uuid;", new { uuid });
+				return await _dbConnection.QuerySingleAsync<NfcDao>("SELECT * FROM nfc WHERE passengerid = @passengerid;", new { passengerid = passengerId });
 			}
 			catch (Exception ex)
 			{
-				_logger.LogError(ex, "Something went wrong when trying to get entity {id} of type {type}", uuid, typeof(NfcDao).Name);
+				_logger.LogError(ex, "Something went wrong when trying to get entity {entity} of type {type}", passengerId, typeof(NfcDao).Name);
 				throw;
 			}
 		}

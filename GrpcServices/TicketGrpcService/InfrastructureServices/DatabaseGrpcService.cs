@@ -21,7 +21,9 @@ namespace TicketGrpcService.InfrastructureServices
 		Task<Database.PassengerList> GetAllPassengersAsync(Database.Request request);
 		Task<Database.TicketList> GetAllTicketsAsync(Database.Request request);
 		Task<Database.Fob> GetFobAsync(Database.Request request);
+		Task<Database.Fob> GetFobByPassengerIdAsync(Database.Request request);
 		Task<Database.Nfc> GetNfcAsync(Database.Request request);
+		Task<Database.Nfc> GetNfcByPassengerIdAsync(Database.Request request);
 		Task<Database.Passenger> GetPassengerAsync(Database.Request request);
 		Task<Database.Ticket> GetTicketAsync(Database.Request request);
 		Task<Database.Response> UpdateFobAsync(Database.Fob request);
@@ -305,6 +307,26 @@ namespace TicketGrpcService.InfrastructureServices
 			}
 		}
 
+		public async Task<Database.Fob> GetFobByPassengerIdAsync(Database.Request request)
+		{
+			if (request is null)
+			{
+				_logHelper.LogNullException(nameof(request));
+				throw new ArgumentNullException(nameof(request));
+			}
+
+			try
+			{
+				_logHelper.LogInvokingGrpcMethod(MethodBase.GetCurrentMethod().Name, _serviceContainerName, request);
+				return await _databaseGrpcServiceClient.GetFobByPassengerIdAsync(request);
+			}
+			catch (Exception ex)
+			{
+				_logHelper.LogErrorInvokingGrpcMethod(ex, MethodBase.GetCurrentMethod().Name, _serviceContainerName, request);
+				throw;
+			}
+		}
+
 		public async Task<Database.Response> UpdateFobAsync(Database.Fob request)
 		{
 			if (request is null)
@@ -404,6 +426,27 @@ namespace TicketGrpcService.InfrastructureServices
 				throw;
 			}
 		}
+
+		public async Task<Database.Nfc> GetNfcByPassengerIdAsync(Database.Request request)
+		{
+			if (request is null)
+			{
+				_logHelper.LogNullException(nameof(request));
+				throw new ArgumentNullException(nameof(request));
+			}
+
+			try
+			{
+				_logHelper.LogInvokingGrpcMethod(MethodBase.GetCurrentMethod().Name, _serviceContainerName, request);
+				return await _databaseGrpcServiceClient.GetNfcByPassengerIdAsync(request);
+			}
+			catch (Exception ex)
+			{
+				_logHelper.LogErrorInvokingGrpcMethod(ex, MethodBase.GetCurrentMethod().Name, _serviceContainerName, request);
+				throw;
+			}
+		}
+
 
 		public async Task<Database.Response> UpdateNfcAsync(Database.Nfc request)
 		{

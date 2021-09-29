@@ -9,7 +9,7 @@ namespace DatabaseGrpcService.InfrastructureServices.Repository
 {
 	internal interface IFobRepository : IBaseRepository<FobDao>
 	{
-		Task<FobDao> GetFobByNfc(NfcDao nfc);
+		Task<FobDao> GetFobByPassengerId(int passengerId);
 	}
 
 	public class FobRepository : BaseRepository<FobDao>, IFobRepository
@@ -23,17 +23,17 @@ namespace DatabaseGrpcService.InfrastructureServices.Repository
 			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
 		}
 
-		public async Task<FobDao> GetFobByNfc(NfcDao nfc)
+		public async Task<FobDao> GetFobByPassengerId(int passengerId)
 		{
-			_logger.LogInformation("Getting entity {nfc} of type {type}", nfc, typeof(NfcDao).Name);
+			_logger.LogInformation("Getting entity {entity} of type {type}", passengerId, typeof(FobDao).Name);
 
 			try
 			{
-				return await _dbConnection.QuerySingleAsync<FobDao>("SELECT * FROM nfc WHERE passengerid = @passengerid;", new { passengerid = nfc.passengerid });
+				return await _dbConnection.QuerySingleAsync<FobDao>("SELECT * FROM fob WHERE passengerid = @passengerid;", new { passengerid = passengerId });
 			}
 			catch (Exception ex)
 			{
-				_logger.LogError(ex, "Something went wrong when trying to get entity {id} of type {type}", nfc, typeof(NfcDao).Name);
+				_logger.LogError(ex, "Something went wrong when trying to get entity {entity} of type {type}", passengerId, typeof(FobDao).Name);
 				throw;
 			}
 		}
