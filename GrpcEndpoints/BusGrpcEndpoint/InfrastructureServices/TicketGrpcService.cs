@@ -8,8 +8,6 @@ namespace BusGrpcEndpoint.InfrastructureServices
 {
 	public interface ITicketGrpcService
 	{
-		Task<TicketService.Response> CheckInAsync(TicketService.Nfc request);
-		Task<TicketService.Response> CheckOutAsync(TicketService.Fob request);
 		Task<TicketService.Fob> GetFobByNfcAsync(TicketService.Nfc request);
 	}
 
@@ -24,46 +22,6 @@ namespace BusGrpcEndpoint.InfrastructureServices
 		{
 			_ticketGrpcServiceClient = ticketGrpcServiceClient;
 			_logHelper = logHelper;
-		}
-
-		public async Task<TicketService.Response> CheckInAsync(TicketService.Nfc request)
-		{
-			if (request is null)
-			{
-				_logHelper.LogNullException(nameof(request));
-				throw new ArgumentNullException(nameof(request));
-			}
-
-			try
-			{
-				_logHelper.LogInvokingGrpcMethod(MethodBase.GetCurrentMethod().Name, _serviceContainerName, request);
-				return await _ticketGrpcServiceClient.CheckInAsync(request);
-			}
-			catch (Exception ex)
-			{
-				_logHelper.LogErrorInvokingGrpcMethod(ex, MethodBase.GetCurrentMethod().Name, _serviceContainerName, request);
-				throw;
-			}
-		}
-
-		public async Task<TicketService.Response> CheckOutAsync(TicketService.Fob request)
-		{
-			if (request is null)
-			{
-				_logHelper.LogNullException(nameof(request));
-				throw new ArgumentNullException(nameof(request));
-			}
-
-			try
-			{
-				_logHelper.LogInvokingGrpcMethod(MethodBase.GetCurrentMethod().Name, _serviceContainerName, request);
-				return await _ticketGrpcServiceClient.CheckOutAsync(request);
-			}
-			catch (Exception ex)
-			{
-				_logHelper.LogErrorInvokingGrpcMethod(ex, MethodBase.GetCurrentMethod().Name, _serviceContainerName, request);
-				throw;
-			}
 		}
 
 		public async Task<TicketService.Fob> GetFobByNfcAsync(TicketService.Nfc request)

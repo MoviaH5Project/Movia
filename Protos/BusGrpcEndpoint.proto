@@ -7,8 +7,8 @@ package BusGrpcEndpoint;
 service BusGrpcEndpoint {
   rpc GetBus(BusRequest) returns (Bus); // Bus gets initial data about itself, by id
   rpc GetFob(Nfc) returns (Fob); // Scanner gets Fob MAC Address by NFC ID
-  rpc CheckIn(Nfc) returns (Response); // NFC scanned
-  rpc CheckOut(Fob) returns (Response); // Bluetooth device left
+  rpc CheckIn(BusRequest) returns (Response); // NFC scanned
+  rpc CheckOut(BusRequest) returns (Response); // Bluetooth device left
 }
 
 message Bus {
