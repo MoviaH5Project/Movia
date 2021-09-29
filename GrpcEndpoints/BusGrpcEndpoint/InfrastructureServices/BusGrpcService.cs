@@ -8,6 +8,8 @@ namespace BusGrpcEndpoint.InfrastructureServices
 {
 	public interface IBusGrpcService
 	{
+		Task<BusService.Response> CheckInAsync(BusService.Request request);
+		Task<BusService.Response> CheckOutAsync(BusService.Request request);
 		Task<BusService.Bus> GetBusAsync(BusService.Request request);
 	}
 
@@ -36,6 +38,46 @@ namespace BusGrpcEndpoint.InfrastructureServices
 			{
 				_logHelper.LogInvokingGrpcMethod(MethodBase.GetCurrentMethod().Name, _serviceContainerName, request);
 				return await _busGrpcServiceClient.GetBusAsync(request);
+			}
+			catch (Exception ex)
+			{
+				_logHelper.LogErrorInvokingGrpcMethod(ex, MethodBase.GetCurrentMethod().Name, _serviceContainerName, request);
+				throw;
+			}
+		}
+
+		public async Task<BusService.Response> CheckInAsync(BusService.Request request)
+		{
+			if (request is null)
+			{
+				_logHelper.LogNullException(nameof(request));
+				throw new ArgumentNullException(nameof(request));
+			}
+
+			try
+			{
+				_logHelper.LogInvokingGrpcMethod(MethodBase.GetCurrentMethod().Name, _serviceContainerName, request);
+				return await _busGrpcServiceClient.CheckInAsync(request);
+			}
+			catch (Exception ex)
+			{
+				_logHelper.LogErrorInvokingGrpcMethod(ex, MethodBase.GetCurrentMethod().Name, _serviceContainerName, request);
+				throw;
+			}
+		}
+
+		public async Task<BusService.Response> CheckOutAsync(BusService.Request request)
+		{
+			if (request is null)
+			{
+				_logHelper.LogNullException(nameof(request));
+				throw new ArgumentNullException(nameof(request));
+			}
+
+			try
+			{
+				_logHelper.LogInvokingGrpcMethod(MethodBase.GetCurrentMethod().Name, _serviceContainerName, request);
+				return await _busGrpcServiceClient.CheckOutAsync(request);
 			}
 			catch (Exception ex)
 			{

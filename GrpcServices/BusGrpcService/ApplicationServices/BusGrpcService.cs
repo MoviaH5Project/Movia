@@ -151,5 +151,65 @@ namespace BusGrpcService.ApplicationServices
 				throw;
 			}
 		}
+
+		public override async Task<Protos.Response> CheckIn(Protos.Request request, ServerCallContext context)
+		{
+			if (request is null)
+			{
+				_logHelper.LogNullException(nameof(request));
+				throw new ArgumentNullException(nameof(request));
+			}
+
+			if (context is null)
+			{
+				_logHelper.LogNullException(nameof(context));
+				throw new ArgumentNullException(nameof(context));
+			}
+
+			try
+			{
+				_logHelper.LogInvokingGrpcMethod(MethodBase.GetCurrentMethod().Name, _serviceContainerName, request);
+
+				Database.Bus bus = await _databaseGrpcService.GetBusAsync(Database.Request.Parser.ParseFrom(request.ToByteArray()));
+				bus.CurrentBusOccupation++;
+
+				return Protos.Response.Parser.ParseFrom((await _databaseGrpcService.UpdateBusAsync(bus)).ToByteArray());
+			}
+			catch (Exception ex)
+			{
+				_logHelper.LogErrorInvokingGrpcMethod(ex, MethodBase.GetCurrentMethod().Name, _serviceContainerName, request);
+				throw;
+			}
+		}
+
+		public override async Task<Protos.Response> CheckOut(Protos.Request request, ServerCallContext context)
+		{
+			if (request is null)
+			{
+				_logHelper.LogNullException(nameof(request));
+				throw new ArgumentNullException(nameof(request));
+			}
+
+			if (context is null)
+			{
+				_logHelper.LogNullException(nameof(context));
+				throw new ArgumentNullException(nameof(context));
+			}
+
+			try
+			{
+				_logHelper.LogInvokingGrpcMethod(MethodBase.GetCurrentMethod().Name, _serviceContainerName, request);
+
+				Database.Bus bus = await _databaseGrpcService.GetBusAsync(Database.Request.Parser.ParseFrom(request.ToByteArray()));
+				bus.CurrentBusOccupation--;
+
+				return Protos.Response.Parser.ParseFrom((await _databaseGrpcService.UpdateBusAsync(bus)).ToByteArray());
+			}
+			catch (Exception ex)
+			{
+				_logHelper.LogErrorInvokingGrpcMethod(ex, MethodBase.GetCurrentMethod().Name, _serviceContainerName, request);
+				throw;
+			}
+		}
 	}
 }
