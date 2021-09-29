@@ -82,3 +82,14 @@ CREATE TABLE IF NOT EXISTS ticket (
         FOREIGN KEY(destinationstopid)
         REFERENCES stop(id)
 );
+
+INSERT INTO route (id, name) VALUES (1, 'IKKE I RUTE');
+
+INSERT INTO passenger (id, name) VALUES (1, 'Testpassager 1');
+INSERT INTO passenger (id, name) VALUES (2, 'Testpassager 2');
+
+INSERT INTO nfc (uuid, passengerid) VALUES ('cb11cd22', 1);
+INSERT INTO fob (macaddress, passengerid) VALUES ('ff:ff:70:09:14:22', 1);
+
+INSERT INTO nfc (uuid, passengerid) VALUES ('5b807922', 2);
+INSERT INTO fob (macaddress, passengerid) VALUES ('ff:ff:70:09:20:34', 2);
