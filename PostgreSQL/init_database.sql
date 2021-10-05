@@ -83,7 +83,9 @@ CREATE TABLE IF NOT EXISTS ticket (
         REFERENCES stop(id)
 );
 
+
 INSERT INTO route (id, name) VALUES (1, 'IKKE I RUTE');
+INSERT INTO route (id, name) VALUES (2, 'Route 401A');
 
 INSERT INTO passenger (id, name) VALUES (1, 'Testpassager 1');
 INSERT INTO passenger (id, name) VALUES (2, 'Testpassager 2');
@@ -93,3 +95,8 @@ INSERT INTO fob (macaddress, passengerid) VALUES ('ff:ff:70:09:14:22', 1);
 
 INSERT INTO nfc (uuid, passengerid) VALUES ('5b807922', 2);
 INSERT INTO fob (macaddress, passengerid) VALUES ('ff:ff:70:09:20:34', 2);
+
+
+INSERT INTO bus (name, make, driver, routeid, totalbuscapacity, currentbusoccupation, latitude, longitude) values('401A', 'Volvo', 'Martin', 2, 60, 5, '0', '0');
+INSERT INTO bus (name, make, driver, routeid, totalbuscapacity, currentbusoccupation, latitude, longitude) values('260R', 'Scania', 'Martin', 1, 60, 12, '0', '0');
+INSERT INTO bus (name, make, driver, routeid, totalbuscapacity, currentbusoccupation, latitude, longitude) values('440R', 'Mercedes', 'Martin', 1, 60, 19, '0', '0');
