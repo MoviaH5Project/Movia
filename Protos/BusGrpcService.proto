@@ -12,6 +12,8 @@ rpc GetBus(Request) returns (Bus);
 rpc GetAllBusses(Request) returns (BusList);
 rpc UpdateBus(Bus) returns (Response);
 rpc DeleteBus(Request) returns (Response);
+rpc CheckIn(Request) returns (Response);
+rpc CheckOut(Request) returns (Response);
 }
 
 message Request {

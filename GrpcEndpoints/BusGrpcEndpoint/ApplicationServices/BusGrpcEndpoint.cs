@@ -78,7 +78,7 @@ namespace BusGrpcEndpoint.ApplicationServices
 			}
 		}
 
-		public override async Task<BusEndpoint.Response> CheckIn(BusEndpoint.Nfc request, ServerCallContext context)
+		public override async Task<BusEndpoint.Response> CheckIn(BusEndpoint.BusRequest request, ServerCallContext context)
 		{
 			if (request is null)
 			{
@@ -95,7 +95,7 @@ namespace BusGrpcEndpoint.ApplicationServices
 			try
 			{
 				_logHelper.LogInvokingGrpcMethod(MethodBase.GetCurrentMethod().Name, _serviceContainerName, request);
-				return BusEndpoint.Response.Parser.ParseFrom((await _ticketGrpcService.CheckInAsync(TicketService.Nfc.Parser.ParseFrom(request.ToByteArray()))).ToByteArray());
+				return BusEndpoint.Response.Parser.ParseFrom((await _busGrpcService.CheckInAsync(BusService.Request.Parser.ParseFrom(request.ToByteArray()))).ToByteArray());
 			}
 			catch (Exception ex)
 			{
@@ -104,7 +104,7 @@ namespace BusGrpcEndpoint.ApplicationServices
 			}
 		}
 
-		public override async Task<BusEndpoint.Response> CheckOut(BusEndpoint.Fob request, ServerCallContext context)
+		public override async Task<BusEndpoint.Response> CheckOut(BusEndpoint.BusRequest request, ServerCallContext context)
 		{
 			if (request is null)
 			{
@@ -121,7 +121,7 @@ namespace BusGrpcEndpoint.ApplicationServices
 			try
 			{
 				_logHelper.LogInvokingGrpcMethod(MethodBase.GetCurrentMethod().Name, _serviceContainerName, request);
-				return BusEndpoint.Response.Parser.ParseFrom((await _ticketGrpcService.CheckOutAsync(TicketService.Fob.Parser.ParseFrom(request.ToByteArray()))).ToByteArray());
+				return BusEndpoint.Response.Parser.ParseFrom((await _busGrpcService.CheckOutAsync(BusService.Request.Parser.ParseFrom(request.ToByteArray()))).ToByteArray());
 			}
 			catch (Exception ex)
 			{

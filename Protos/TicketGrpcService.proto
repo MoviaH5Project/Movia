@@ -13,8 +13,6 @@ rpc GetPassenger(Request) returns (Passenger);
 rpc GetAllPassengers(Request) returns (PassengerList);
 rpc UpdatePassenger(Passenger) returns (Response);
 rpc DeletePassenger(Request) returns (Response);
-rpc CheckIn(Nfc) returns (Response);
-rpc CheckOut(Fob) returns (Response);
 
 // Ticket CRUD
 rpc CreateTicket(Ticket) returns (Response);
